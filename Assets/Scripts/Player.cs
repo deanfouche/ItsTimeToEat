@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
         {
             _nextHungerTick = Time.time + hungerRate;
             hunger += hungerIncrement;
+            Debug.Log($"Player hunger level = {hunger}");
         }
     }
 }

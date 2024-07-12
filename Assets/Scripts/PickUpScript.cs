@@ -7,10 +7,23 @@ public class PickUpScript : MonoBehaviour
     public GameObject player;
     public Transform holdPos;
     public float throwForce = 500f; //force at which the object is thrown at
-    public float pickUpRange = 5f; //how far the player can pickup the object from
+    public float pickUpRange = 2f; //how far the player can pickup the object from
     private GameObject _heldObj; //object which we pick up
     private Rigidbody _heldObjRb; //rigidbody of object we pick up
-    private bool canDrop = true; //this is needed so we don't throw/drop object when rotating the object
+    private bool _canDrop = true; //this is needed so we don't throw/drop object when rotating the object
+
+    private bool _isEating = false;
+    [SerializeField]
+    private float _timeToEat = 1f;
+    private float _timeToFinishFood = 0f;
+
+    public AnimationCurve myCurve;
+
+    ////adjust this to change speed
+    //float speed = 5f;
+    ////adjust this to change how high it goes
+    //float height = 0.5f;
+    //Vector3 pos;
 
     void Start()
     {
@@ -19,24 +32,54 @@ public class PickUpScript : MonoBehaviour
 
     void Update()
     {
+        if (_isEating) // animate eating food
+        {
+            if (Time.time < _timeToFinishFood)
+            {
+                float timeLeft = _timeToFinishFood - Time.time;
+                Debug.Log($"You are eating the {_heldObj.name} (Time to finish food: ${timeLeft})");
+                //_heldObj.transform.position = new Vector3(_heldObj.transform.position.x, myCurve.Evaluate((Time.time % myCurve.length)), _heldObj.transform.position.z);
+
+                ////get the objects current position and put it in a variable so we can access it later with less code
+                //Vector3 pos = _heldObj.transform.position;
+                ////calculate what the new Y position will be
+                //float newY = Mathf.Sin(Time.time * speed);
+                ////set the object's Y to the new calculated Y
+                //_heldObj.transform.position = new Vector3(pos.x, newY, pos.z) * height;
+
+                ////calculate what the new Y position will be
+                //float newY = Mathf.Sin(Time.time * speed) * height + pos.y;
+                ////set the object's Y to the new calculated Y
+                //_heldObj.transform.position = new Vector3(_heldObj.transform.position.x, newY, _heldObj.transform.position.z);
+            } else
+            {
+                Debug.Log($"You ate the {_heldObj.name}");
+                _isEating = false;
+                GameObject consumedFood = _heldObj;
+                _heldObj = null;
+                Destroy(consumedFood);
+                this.player.GetComponent<Player>().hunger -= 10f;
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.E)) // try to pick up object
         {
-            if (_heldObj == null) //if currently not holding anything
+            if (_heldObj == null) // if currently not holding anything
             {
-                //perform raycast to check if player is looking at object within pickuprange
+                // perform raycast to check if player is looking at object within pickuprange
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickUpRange))
                 {
-                    //make sure pickup tag is attached
-                    if (hit.transform.gameObject.tag == "Food")
+                    // make sure pickup tag is attached
+                    if (hit.transform.gameObject.tag == "Food" || hit.transform.gameObject.tag == "CanPickUp")
                     {
-                        //pass in object hit into the PickUpObject function
+                        // pass in object hit into the PickUpObject function
                         PickUpObject(hit.transform.gameObject);
                     }
                 }
             } else
             {
-                if (canDrop == true)
+                if (_canDrop == true)
                 {
                     StopClipping(); // prevents object from clipping through walls
                     DropObject();
@@ -51,7 +94,7 @@ public class PickUpScript : MonoBehaviour
             if (Input.GetKey(KeyCode.Mouse1))
             {
                 // throw held object
-                if (Input.GetKeyDown(KeyCode.Mouse0) && canDrop == true) //Mous0 (leftclick) is used to throw, change this if you want another button to be used)
+                if (Input.GetKeyDown(KeyCode.Mouse0) && _canDrop == true) // Mous0 (leftclick) is used to throw, change this if you want another button to be used)
                 {
                     StopClipping();
                     ThrowObject();
@@ -75,8 +118,8 @@ public class PickUpScript : MonoBehaviour
 
     void EatFood()
     {
-        Debug.Log($"You ate the {_heldObj.name}");
-        Destroy(_heldObj);
+        _isEating = true;
+        _timeToFinishFood = Time.time + _timeToEat;
     }
 
     void PickUpObject(GameObject pickUpObj)
@@ -103,8 +146,11 @@ public class PickUpScript : MonoBehaviour
 
     void MoveObject()
     {
-        // keep object position the same as the holdPosition position
-        _heldObj.transform.position = holdPos.transform.position;
+        if (!_isEating)
+        {
+            // keep object position the same as the holdPosition position
+            _heldObj.transform.position = holdPos.transform.position;
+        }
     }
 
     void ThrowObject()
@@ -125,6 +171,7 @@ public class PickUpScript : MonoBehaviour
         // RaycastAll returns array of all colliders hit within the cliprange
         RaycastHit[] hits;
         hits = Physics.RaycastAll(transform.position, transform.TransformDirection(Vector3.forward), clipRange);
+
         //if the array length is greater than 1, meaning it has hit more than just the object we are carrying
         if (hits.Length > 1)
         {
