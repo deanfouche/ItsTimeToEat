@@ -131,12 +131,6 @@ public class FirstPersonController : MonoBehaviour
 
     #endregion
 
-    #region Player Properties
-
-    //public Hunger hunger;
-
-    #endregion
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
