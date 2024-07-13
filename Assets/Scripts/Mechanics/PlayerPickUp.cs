@@ -58,7 +58,7 @@ public class PickUpScript : MonoBehaviour
                 GameObject consumedFood = _heldObj;
                 _heldObj = null;
                 Destroy(consumedFood);
-                this.player.GetComponent<Player>().hunger -= 10f;
+                this.player.GetComponent<Hunger>().hungerLevel -= 10f;
             }
         }
 

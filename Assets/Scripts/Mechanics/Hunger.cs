@@ -1,15 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Hunger : MonoBehaviour
 {
-    public float hunger = 0f;
+    public float maxHungerLevel = 100f;
+    public float hungerLevel = 0f;
     public float hungerIncrement = 5f;
     public float hungerRate = 4f;
     private float _nextHungerTick = 0f;
+    [SerializeField]
+    private HungerMeter _hungerMeter;
 
-    // Start is called before the first frame update
+    // Use this for initialization
     void Start()
     {
 
@@ -21,14 +23,15 @@ public class Player : MonoBehaviour
         CalculateHunger();
     }
 
-    void CalculateHunger()
+    public void CalculateHunger()
     {
         // Increase hunger at regular intervals
         if (Time.time > _nextHungerTick)
         {
             _nextHungerTick = Time.time + hungerRate;
-            hunger += hungerIncrement;
-            Debug.Log($"Player hunger level = {hunger}");
+            hungerLevel += hungerIncrement;
+            _hungerMeter.SetHunger(hungerLevel);
+            Debug.Log($"Player hunger level = {hungerLevel}");
         }
     }
 }
