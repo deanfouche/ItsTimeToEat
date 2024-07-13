@@ -6,11 +6,10 @@ public class PickUpScript : MonoBehaviour
 {
     public GameObject player;
     public Transform holdPos;
-    public float throwForce = 500f; //force at which the object is thrown at
-    public float pickUpRange = 2f; //how far the player can pickup the object from
-    private GameObject _heldObj; //object which we pick up
-    private Rigidbody _heldObjRb; //rigidbody of object we pick up
-    private bool _canDrop = true; //this is needed so we don't throw/drop object when rotating the object
+    public float throwForce = 500f; // force at which the object is thrown at
+    public float pickUpRange = 2f; // how far the player can pickup the object from
+    private GameObject _heldObj; // object which we pick up
+    private Rigidbody _heldObjRb; // rigidbody of object we pick up
 
     private bool _isEating = false;
     [SerializeField]
@@ -51,7 +50,8 @@ public class PickUpScript : MonoBehaviour
                 //float newY = Mathf.Sin(Time.time * speed) * height + pos.y;
                 ////set the object's Y to the new calculated Y
                 //_heldObj.transform.position = new Vector3(_heldObj.transform.position.x, newY, _heldObj.transform.position.z);
-            } else
+            }
+            else
             {
                 Debug.Log($"You ate the {_heldObj.name}");
                 _isEating = false;
@@ -77,13 +77,11 @@ public class PickUpScript : MonoBehaviour
                         PickUpObject(hit.transform.gameObject);
                     }
                 }
-            } else
+            }
+            else
             {
-                if (_canDrop == true)
-                {
-                    StopClipping(); // prevents object from clipping through walls
-                    DropObject();
-                }
+                StopClipping(); // prevents object from clipping through walls
+                DropObject();
             }
         }
 
@@ -94,12 +92,13 @@ public class PickUpScript : MonoBehaviour
             if (Input.GetKey(KeyCode.Mouse1))
             {
                 // throw held object
-                if (Input.GetKeyDown(KeyCode.Mouse0) && _canDrop == true) // Mous0 (leftclick) is used to throw, change this if you want another button to be used)
+                if (Input.GetKeyDown(KeyCode.Mouse0)) // Mous0 (leftclick) is used to throw, change this if you want another button to be used)
                 {
                     StopClipping();
                     ThrowObject();
                 }
-            } else
+            }
+            else
             {
                 // eat the food
                 if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -110,7 +109,8 @@ public class PickUpScript : MonoBehaviour
                     }
                 }
             }
-        } else
+        }
+        else
         {
 
         }
