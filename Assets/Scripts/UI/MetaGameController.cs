@@ -40,6 +40,7 @@ public class MetaGameController : MonoBehaviour
         if (this.showMainCanvas != showMenu)
         {
             _ToggleMainMenu(showMenu);
+
             _TogglePlayerMovement(!showMenu);
         }
     }

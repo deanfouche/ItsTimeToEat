@@ -1,22 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FoodInventory : MonoBehaviour
 {
-    private GameObject[] foodItems;
+    private GameObject[] _foodItems;
     public int foodCount;
+
+    public GameObject counterDisplay;
+    private Text _counterText;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        _counterText = counterDisplay.GetComponent<Text>();
+        Debug.Log(_counterText.text);
     }
 
     // Update is called once per frame
     void Update()
     {
-        foodItems = GameObject.FindGameObjectsWithTag("Food");
-        foodCount = foodItems.Length;
+        _foodItems = GameObject.FindGameObjectsWithTag("Food");
+        if (foodCount != _foodItems.Length)
+        {
+            foodCount = _foodItems.Length;
+            Debug.Log(foodCount);
+            _UpdateFoodCounter(foodCount);
+        }
+    }
+
+    void _UpdateFoodCounter(int foodCount)
+    {
+        _counterText.text = $"{foodCount}";
     }
 }

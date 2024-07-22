@@ -31,8 +31,9 @@ public class Hunger : MonoBehaviour
         {
             _nextHungerTick = Time.time + hungerRate;
             hungerLevel += hungerIncrement;
-            _hungerMeter.SetHunger(hungerLevel);
         }
+
+        _hungerMeter.SetHunger(hungerLevel);
 
         if (hungerLevel >= maxHungerLevel)
         {

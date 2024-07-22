@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class FoodCounter : MonoBehaviour
 {
     public FoodInventory inventory;
-    public GameObject CounterDisplay;
+    public GameObject counterDisplay;
 
     // Use this for initialization
     void Start()
@@ -16,7 +16,7 @@ public class FoodCounter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Text foodCounter = CounterDisplay.GetComponent<Text>();
+        Text foodCounter = counterDisplay.GetComponent<Text>();
         foodCounter.text = $"{inventory.foodCount}";
     }
 }
