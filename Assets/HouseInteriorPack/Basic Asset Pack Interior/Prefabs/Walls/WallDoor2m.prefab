@@ -277,7 +277,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: eb1ea10424b1fd54a911d11e956ea492,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7378741
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb1ea10424b1fd54a911d11e956ea492,
         type: 3}
@@ -287,7 +287,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: eb1ea10424b1fd54a911d11e956ea492,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.67493844
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb1ea10424b1fd54a911d11e956ea492,
         type: 3}
@@ -302,7 +302,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: eb1ea10424b1fd54a911d11e956ea492,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -84.899
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb1ea10424b1fd54a911d11e956ea492,
         type: 3}
@@ -408,7 +408,7 @@ HingeJoint:
   m_ConnectedBody: {fileID: 0}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 1, z: 0}
-  m_Axis: {x: 0, y: 0, z: 0}
+  m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 4.9999876, y: 1, z: -4.5499945}
   serializedVersion: 2

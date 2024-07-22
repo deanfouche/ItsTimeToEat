@@ -23,6 +23,9 @@ public class MetaGameController : MonoBehaviour
 
     bool showMainCanvas = false;
 
+    [SerializeField]
+    FirstPersonController playerController;
+
     void OnEnable()
     {
         _ToggleMainMenu(showMainCanvas);
@@ -31,12 +34,13 @@ public class MetaGameController : MonoBehaviour
     /// <summary>
     /// Turn the main menu on or off.
     /// </summary>
-    /// <param name="show"></param>
-    public void ToggleMainMenu(bool show)
+    /// <param name="showMenu"></param>
+    public void ToggleMainMenu(bool showMenu)
     {
-        if (this.showMainCanvas != show)
+        if (this.showMainCanvas != showMenu)
         {
-            _ToggleMainMenu(show);
+            _ToggleMainMenu(showMenu);
+            _TogglePlayerMovement(!showMenu);
         }
     }
 
@@ -47,21 +51,29 @@ public class MetaGameController : MonoBehaviour
             Time.timeScale = 0;
             mainMenu.gameObject.SetActive(true);
             foreach (var i in gamePlayCanvasii) i.gameObject.SetActive(false);
+            Cursor.lockState = CursorLockMode.Confined;
         }
         else
         {
             Time.timeScale = 1;
             mainMenu.gameObject.SetActive(false);
             foreach (var i in gamePlayCanvasii) i.gameObject.SetActive(true);
+            Cursor.lockState = CursorLockMode.Locked;
         }
         this.showMainCanvas = show;
+    }
+
+    void _TogglePlayerMovement(bool canMove)
+    {
+        this.playerController.cameraCanMove = canMove;
+        this.playerController.playerCanMove = canMove;
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
         {
-            ToggleMainMenu(show: !showMainCanvas);
+            ToggleMainMenu(showMenu: !showMainCanvas);
         }
 
         if (this.showMainCanvas)
@@ -80,8 +92,13 @@ public class MetaGameController : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.X))
             {
-                Application.Quit();
+                _ExitGame();
             }
         }
+    }
+
+    void _ExitGame()
+    {
+        Application.Quit();
     }
 }
