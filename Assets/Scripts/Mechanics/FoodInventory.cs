@@ -15,7 +15,6 @@ public class FoodInventory : MonoBehaviour
     void Start()
     {
         _counterText = counterDisplay.GetComponent<Text>();
-        Debug.Log(_counterText.text);
     }
 
     // Update is called once per frame
@@ -25,7 +24,6 @@ public class FoodInventory : MonoBehaviour
         if (foodCount != _foodItems.Length)
         {
             foodCount = _foodItems.Length;
-            Debug.Log(foodCount);
             _UpdateFoodCounter(foodCount);
         }
     }
