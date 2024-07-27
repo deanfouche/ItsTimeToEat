@@ -52,7 +52,7 @@ public class MetaGameController : MonoBehaviour
             Time.timeScale = 0;
             mainMenu.gameObject.SetActive(true);
             foreach (var i in gamePlayCanvasii) i.gameObject.SetActive(false);
-            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.lockState = CursorLockMode.None;
         }
         else
         {
