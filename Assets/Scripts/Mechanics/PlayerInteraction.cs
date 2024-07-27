@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickUpScript : MonoBehaviour
+public class PlayerInteraction : MonoBehaviour
 {
     public GameObject player;
     public Transform holdPos;
@@ -107,6 +107,7 @@ public class PickUpScript : MonoBehaviour
             _heldObjRb = pickUpObj.GetComponent<Rigidbody>(); //assign Rigidbody
             _heldObjRb.isKinematic = true;
             _heldObjRb.transform.parent = holdPos.transform; //parent object to holdposition
+            _heldObjRb.transform.rotation = holdPos.rotation;
             //make sure object doesnt collide with player, it can cause weird bugs
             Physics.IgnoreCollision(_heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), true);
         }
