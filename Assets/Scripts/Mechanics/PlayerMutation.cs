@@ -13,11 +13,13 @@ namespace Assets.Scripts.Mechanics
         public GameObject mutationDisplay;
 
         private FirstPersonController _playerController;
+        private PlayerInteraction _playerInteraction;
 
         // Use this for initialization
         void Start()
         {
             _playerController = player.GetComponent<FirstPersonController>();
+            _playerInteraction = player.GetComponentInChildren<PlayerInteraction>();
         }
 
         // Update is called once per frame
@@ -25,8 +27,11 @@ namespace Assets.Scripts.Mechanics
         {
             foreach (var mutator in mutators)
             {
-                if (Time.time > mutator.TimeToExpire)
+                mutator.TimeToExpire -= Time.deltaTime;
+
+                if (mutator.TimeToExpire <= 0)
                 {
+                    // End mutation
                     deactivateMutation(mutator);
                 }
             }
@@ -45,6 +50,7 @@ namespace Assets.Scripts.Mechanics
                         _playerController.sprintSpeed += mutator.Intensity;
                         break;
                     case Mutation.ThrowBoost:
+                        _playerInteraction.throwForce += mutator.Intensity;
                         break;
                     case Mutation.StrengthBoost:
                         break;
@@ -53,7 +59,7 @@ namespace Assets.Scripts.Mechanics
                     default:
                         break;
                 }
-                mutator.TimeToExpire = Time.time + mutator.Duration;
+                mutator.TimeToExpire = Time.deltaTime + mutator.Duration;
                 mutator.IsActive = true;
                 mutators.Add(mutator);
 
@@ -78,6 +84,7 @@ namespace Assets.Scripts.Mechanics
                         playerController.sprintSpeed -= mutator.Intensity;
                         break;
                     case Mutation.ThrowBoost:
+                        _playerInteraction.throwForce += mutator.Intensity;
                         break;
                     case Mutation.StrengthBoost:
                         break;

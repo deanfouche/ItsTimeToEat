@@ -6,27 +6,60 @@ namespace Assets.Scripts.UI
 {
     public class MutationIndicator : MonoBehaviour
     {
-        public GameObject indicatorObj;
-        public GameObject indicatorNameObj;
+        public Image indicatorObj;
+        public Text indicatorNameObj;
+        private MutationUIElement mutationUIObj;
 
-        public float timeToExpire;
-        public float totalTime;
-
-        public MutationIndicator(float timeToExpire, float totalTime)
+        private class MutationUIElement
         {
-            this.timeToExpire = timeToExpire;
-            this.totalTime = totalTime;
+            public string mutationName;
+            public float timeToExpire;
+            public float totalTime;
+
+            public MutationUIElement(string name, float timeToExpire, float totalTime)
+            {
+                this.mutationName = name;
+                this.timeToExpire = timeToExpire;
+                this.totalTime = totalTime;
+            }
+        }
+
+        public void AddMutationUIElement(string name, float timeToExpire, float totalTime)
+        {
+            mutationUIObj = new MutationUIElement(name, timeToExpire, totalTime);
+        }
+
+        public void RemoveMutationUIElement()
+        {
+            Destroy(this.gameObject);
+        }
+
+        public 
+
+        void Start()
+        {
+            this.indicatorObj = this.GetComponentInChildren<Image>();
+            this.indicatorNameObj = this.GetComponentInChildren<Text>();
+            this.indicatorNameObj.text = this.mutationUIObj.mutationName;
         }
 
         // Update is called once per frame
         void Update()
         {
-            Image indicator = this.GetComponentInChildren<Image>();
-            Debug.Log(indicator.name);
-            var testValue = timeToExpire - Time.deltaTime / totalTime;
-            indicator.fillAmount = testValue;
-            Debug.Log($"Fill amount = {testValue}, time = {Time.deltaTime}");
-            Debug.Log(indicator.fillAmount);
+            if (mutationUIObj != null)
+            {
+                mutationUIObj.timeToExpire -= Time.deltaTime;
+
+                if (mutationUIObj.timeToExpire <= 0)
+                {
+                    // End mutation
+                }
+                else
+                {
+                    float fillAmount = mutationUIObj.timeToExpire / mutationUIObj.totalTime;
+                    this.indicatorObj.fillAmount = fillAmount;
+                }
+            }
         }
     }
 }

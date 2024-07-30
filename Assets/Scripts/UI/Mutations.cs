@@ -16,9 +16,8 @@ namespace Assets.Scripts.UI
         {
             GameObject newMutationIndicator = Instantiate(uiMutationPrefab, parentContainer);
             newMutationIndicator.name = mutator.Mutation.ToString();
-            MutationIndicator indicator = newMutationIndicator.AddComponent<MutationIndicator>();
-            indicator.timeToExpire = mutator.TimeToExpire;
-            indicator.totalTime = mutator.Duration;
+            MutationIndicator indicator = newMutationIndicator.GetComponent<MutationIndicator>();
+            indicator.AddMutationUIElement(mutator.Mutation.ToString(), mutator.TimeToExpire, mutator.Duration);
             activeMutations.Add(newMutationIndicator);
         }
 
@@ -26,11 +25,14 @@ namespace Assets.Scripts.UI
         {
             if (activeMutations.Count > 0)
             {
+                var mutationType = mutation.GetType();
+
                 GameObject indicatorToRemove = activeMutations.Find(indicator => indicator.name == mutation.ToString());
+                Debug.Log($"Mutation UI element: {indicatorToRemove}");
                 if (indicatorToRemove != null)
                 {
                     activeMutations.Remove(indicatorToRemove);
-                    Destroy(indicatorToRemove);
+                    indicatorToRemove.GetComponent<MutationIndicator>().RemoveMutationUIElement();
                 }
             }
         }

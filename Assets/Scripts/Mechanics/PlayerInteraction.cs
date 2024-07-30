@@ -8,19 +8,19 @@ namespace Assets.Scripts.Mechanics
     public class PlayerInteraction : MonoBehaviour
     {
         public GameObject player;
-        public Transform holdPosFood;
-        public Transform holdPosObject;
+        public Transform holdPos;
         public float throwForce = 500f; // force at which the object is thrown at
         public float pickUpRange = 2f; // how far the player can pickup the object from
-        private GameObject _heldFoodObj; // food object which we pick up
-        private Rigidbody _heldFoodObjRb; // rigidbody of food object we pick up
-        private GameObject _heldThrowObj; // throwable object which we pick up
-        private Rigidbody _heldThrowObjRb; // rigidbody of throwable object we pick up
+        private GameObject _heldObj; // object which we pick up
+        private Rigidbody _heldObjRb; // rigidbody of object we pick up
+        private bool _isHoldingObj;
 
         private bool _isEating = false;
         [SerializeField]
         private float _timeToEat = 1f;
         private float _timeToFinishFood = 0f;
+
+        public Animator rightHandAnimator;
 
         void Start()
         {
@@ -29,7 +29,7 @@ namespace Assets.Scripts.Mechanics
 
         void Update()
         {
-            #region Food interaction
+            #region Object interaction
 
             if (_isEating) // animate eating food
             {
@@ -40,7 +40,7 @@ namespace Assets.Scripts.Mechanics
                 else
                 {
                     _isEating = false;
-                    GameObject consumedFood = _heldFoodObj;
+                    GameObject consumedFood = _heldObj;
                     // apply mutation to player if food has any
                     IMutator mutation = consumedFood.GetComponent<IMutator>();
                     if (mutation != null)
@@ -48,90 +48,61 @@ namespace Assets.Scripts.Mechanics
                         PlayerMutation playerMutation = player.GetComponent<PlayerMutation>();
                         playerMutation.applyMutation(mutation);
                     }
-                    _heldFoodObj = null;
+                    _isHoldingObj = false;
+                    _heldObj = null;
                     Destroy(consumedFood);
                     this.player.GetComponent<Hunger>().hungerLevel -= 10f;
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Q)) // try to pick up object
-            {
-                if (_heldFoodObj == null) // if currently not holding anything
-                {
-                    // perform raycast to check if player is looking at object within pickuprange
-                    RaycastHit hit;
-                    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickUpRange))
-                    {
-                        // make sure pickup tag is attached
-                        if (hit.transform.gameObject.tag == "Food")
-                        {
-                            // pass in object hit into the PickUpObject function
-                            PickUpObject(hit.transform.gameObject);
-                        }
-                    }
-                }
-                else
-                {
-                    StopClipping(_heldFoodObj); // prevents object from clipping through walls
-                    DropObject(_heldFoodObj);
-                }
-            }
-
-            if (_heldFoodObj != null) // player is holding food object
-            {
-                MoveObject(_heldFoodObj); // keep object position at holdPos
-
-                if (!Input.GetKey(KeyCode.Mouse1))
-                {
-                    // eat the food
-                    if (Input.GetKeyDown(KeyCode.Mouse0))
-                    {
-                        if (_heldFoodObj.tag == "Food")
-                        {
-                            EatFood();
-                        }
-                    }
-                }
-            }
-
-            #endregion
-
-            #region Throwable object interaction
-
             if (Input.GetKeyDown(KeyCode.E)) // try to pick up object
             {
-                if (_heldThrowObj == null) // if currently not holding anything
+                if (!_isHoldingObj) // if currently not holding anything
                 {
-                    // perform raycast to check if player is looking at object within pickuprange
-                    RaycastHit hit;
-                    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickUpRange))
-                    {
-                        // make sure pickup tag is attached
-                        if (hit.transform.gameObject.tag == "CanPickUp")
+                        // perform raycast to check if player is looking at object within pickuprange
+                        RaycastHit hit;
+                        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickUpRange))
                         {
-                            // pass in object hit into the PickUpObject function
-                            PickUpObject(hit.transform.gameObject);
+                            // make sure pickup tag is attached
+                            if (hit.transform.gameObject.tag == "CanPickUp" || hit.transform.gameObject.tag == "Food")
+                            {
+                                // pass in object hit into the PickUpObject function
+                                PickUpObject(hit.transform.gameObject);
+                            }
                         }
-                    }
+                    //if (!_isHoldingObj)
+                    //{
+                    //}
                 }
                 else
                 {
-                    StopClipping(_heldThrowObj); // prevents object from clipping through walls
-                    DropObject(_heldThrowObj);
+                    StopClipping(); // prevents object from clipping through walls
+                    DropObject();
                 }
             }
 
-            if (_heldThrowObj != null) // player is holding throwable object
+            if (_isHoldingObj) // player is holding food object
             {
-                MoveObject(_heldThrowObj); // keep object position at holdPos
+                MoveObject(); // keep object position at holdPos
 
                 if (Input.GetKey(KeyCode.Mouse1))
                 {
                     // throw held object
                     if (Input.GetKeyDown(KeyCode.Mouse0)) // Mous0 (leftclick) is used to throw, change this if you want another button to be used)
                     {
-                        StopClipping(_heldThrowObj);
-                        ThrowObject(_heldThrowObj);
+                        StopClipping();
+                        ThrowObject();
+                    }
+                }
+                else
+                {
+                    // eat the food
+                    if (Input.GetKeyDown(KeyCode.Mouse0))
+                    {
+                        if (_heldObj.tag == "Food")
+                        {
+                            EatFood();
+                        }
                     }
                 }
             }
@@ -141,6 +112,8 @@ namespace Assets.Scripts.Mechanics
 
         void EatFood()
         {
+            rightHandAnimator.SetTrigger("EatFood");
+
             _isEating = true;
             _timeToFinishFood = Time.time + _timeToEat;
         }
@@ -149,95 +122,66 @@ namespace Assets.Scripts.Mechanics
         {
             if (pickUpObj.GetComponent<Rigidbody>()) //make sure the object has a RigidBody
             {
-                if (pickUpObj.tag == "Food")
-                {
-                    _heldFoodObj = pickUpObj; // assign object that was hit by the raycast to _heldObj (no longer == null)
-                    _heldFoodObjRb = pickUpObj.GetComponent<Rigidbody>(); //assign Rigidbody
-                    _heldFoodObjRb.isKinematic = true;
-                    _heldFoodObjRb.transform.parent = holdPosFood.transform; //parent object to holdposition
-                    _heldFoodObjRb.transform.rotation = holdPosFood.rotation;
-                    //make sure object doesnt collide with player, it can cause weird bugs
-                    Physics.IgnoreCollision(_heldFoodObj.GetComponent<Collider>(), player.GetComponent<Collider>(), true);
-                }
-                else if (pickUpObj.tag == "CanPickUp")
-                {
-                    _heldThrowObj = pickUpObj; // assign object that was hit by the raycast to _heldObj (no longer == null)
-                    _heldThrowObjRb = pickUpObj.GetComponent<Rigidbody>(); //assign Rigidbody
-                    _heldThrowObjRb.isKinematic = true;
-                    _heldThrowObjRb.transform.parent = holdPosObject.transform; //parent object to holdposition
-                    _heldThrowObjRb.transform.rotation = holdPosObject.rotation;
-                    //make sure object doesnt collide with player, it can cause weird bugs
-                    Physics.IgnoreCollision(_heldThrowObj.GetComponent<Collider>(), player.GetComponent<Collider>(), true);
-                }
+                _heldObj = pickUpObj; // assign object that was hit by the raycast to _heldObj (no longer == null)
+                _heldObjRb = pickUpObj.GetComponent<Rigidbody>(); //assign Rigidbody
+
+                rightHandAnimator.SetTrigger("GrabObject");
             }
         }
 
-        void DropObject(GameObject heldObj)
+        public void GrabObject()
         {
-            if (heldObj.tag == "Food")
+            if (_heldObj != null)
             {
-                // re-enable collision with player
-                Physics.IgnoreCollision(_heldFoodObj.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
-                _heldFoodObjRb.isKinematic = false;
-                _heldFoodObj.transform.parent = null; //unparent object
-                _heldFoodObj = null; //undefine game object
-            }
-            else if (heldObj.tag == "CanPickUp")
-            {
-                // re-enable collision with player
-                Physics.IgnoreCollision(_heldThrowObj.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
-                _heldThrowObjRb.isKinematic = false;
-                _heldThrowObj.transform.parent = null; //unparent object
-                _heldThrowObj = null; //undefine game object
+                _heldObjRb.isKinematic = true;
+                _heldObjRb.transform.parent = holdPos.transform; //parent object to holdposition
+                _heldObjRb.transform.rotation = holdPos.rotation;
+                //make sure object doesnt collide with player, it can cause weird bugs
+                Physics.IgnoreCollision(_heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), true);
+                _isHoldingObj = true;
             }
         }
 
-        void MoveObject(GameObject heldObj)
+        void DropObject()
         {
-            if (heldObj.tag == "Food")
-            {
-                if (!_isEating)
-                {
-                    // keep object position the same as the holdPosition position
-                    _heldFoodObj.transform.position = holdPosFood.transform.position;
-                }
-            }
-            else if (heldObj.tag == "CanPickUp")
+            rightHandAnimator.SetTrigger("DropObject");
+
+            // re-enable collision with player
+            Physics.IgnoreCollision(_heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
+            _heldObjRb.isKinematic = false;
+            _heldObj.transform.parent = null; //unparent object
+            _isHoldingObj = false;
+            _heldObj = null; //undefine game object
+        }
+
+        void MoveObject()
+        {
+            if (!_isEating)
             {
                 // keep object position the same as the holdPosition position
-                _heldThrowObj.transform.position = holdPosObject.transform.position;
+                _heldObj.transform.position = holdPos.transform.position;
             }
         }
 
-        void ThrowObject(GameObject heldObj)
+        void ThrowObject()
         {
-            if (heldObj.tag == "Food")
-            {
-                //same as drop function, but add force to object before undefining it
-                Physics.IgnoreCollision(_heldFoodObj.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
-                _heldFoodObj.layer = 0;
-                _heldFoodObjRb.isKinematic = false;
-                _heldFoodObj.transform.parent = null;
-                _heldFoodObjRb.AddForce(transform.forward * throwForce);
-                _heldFoodObj = null;
-            }
-            else if (heldObj.tag == "CanPickUp")
-            {
-                //same as drop function, but add force to object before undefining it
-                Physics.IgnoreCollision(_heldThrowObj.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
-                _heldThrowObj.layer = 0;
-                _heldThrowObjRb.isKinematic = false;
-                _heldThrowObj.transform.parent = null;
-                _heldThrowObjRb.AddForce(transform.forward * throwForce);
-                _heldThrowObj = null;
-            }
+            rightHandAnimator.SetTrigger("ThrowObject");
+
+            //same as drop function, but add force to object before undefining it
+            Physics.IgnoreCollision(_heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
+            _heldObj.layer = 0;
+            _heldObjRb.isKinematic = false;
+            _heldObj.transform.parent = null;
+            _heldObjRb.AddForce(transform.forward * throwForce);
+            _isHoldingObj = false;
+            _heldObj = null;
         }
 
-        void StopClipping(GameObject heldObj) // function only called when dropping/throwing
+        void StopClipping() // function only called when dropping/throwing
         {
-            var clipRange = Vector3.Distance(heldObj.transform.position, transform.position); // distance from holdPos to the camera
-                                                                                              // have to use RaycastAll as object blocks raycast in center screen
-                                                                                              // RaycastAll returns array of all colliders hit within the cliprange
+            var clipRange = Vector3.Distance(_heldObj.transform.position, transform.position); // distance from holdPos to the camera
+                                                                                               // have to use RaycastAll as object blocks raycast in center screen
+                                                                                               // RaycastAll returns array of all colliders hit within the cliprange
             RaycastHit[] hits;
             hits = Physics.RaycastAll(transform.position, transform.TransformDirection(Vector3.forward), clipRange);
 
@@ -245,8 +189,8 @@ namespace Assets.Scripts.Mechanics
             if (hits.Length > 3)
             {
                 //change object position to camera position 
-                heldObj.transform.position = transform.position + new Vector3(0f, -0.5f, 0f); //offset slightly downward to stop object dropping above player 
-                                                                                              //if your player is small, change the -0.5f to a smaller number (in magnitude) ie: -0.1f
+                _heldObj.transform.position = transform.position + new Vector3(0f, -0.5f, 0f); //offset slightly downward to stop object dropping above player 
+                                                                                               //if your player is small, change the -0.5f to a smaller number (in magnitude) ie: -0.1f
             }
         }
     }
