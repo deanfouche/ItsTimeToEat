@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Gameplay;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,6 +39,13 @@ public class PlayerInteraction : MonoBehaviour
             {
                 _isEating = false;
                 GameObject consumedFood = _heldFoodObj;
+                // apply mutation to player if food has any
+                IMutator mutation = consumedFood.GetComponent<IMutator>();
+                if (mutation != null)
+                {
+                    PlayerMutation playerMutation = player.GetComponent<PlayerMutation>();
+                    playerMutation.applyMutation(mutation);
+                }
                 _heldFoodObj = null;
                 Destroy(consumedFood);
                 this.player.GetComponent<Hunger>().hungerLevel -= 10f;
