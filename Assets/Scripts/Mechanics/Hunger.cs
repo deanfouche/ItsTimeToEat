@@ -1,43 +1,47 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.UI;
+using System.Collections;
 using UnityEngine;
 
-public class Hunger : MonoBehaviour
+namespace Assets.Scripts.Mechanics
 {
-    public GameObject player;
-    public float maxHungerLevel = 100f;
-    public float hungerLevel = 0f;
-    public float hungerIncrement = 5f;
-    public float hungerRate = 2f;
-    private float _nextHungerTick = 0f;
-    [SerializeField]
-    private HungerMeter _hungerMeter;
-
-    // Use this for initialization
-    void Start()
+    public class Hunger : MonoBehaviour
     {
+        public GameObject player;
+        public float maxHungerLevel = 100f;
+        public float hungerLevel = 0f;
+        public float hungerIncrement = 5f;
+        public float hungerRate = 2f;
+        private float _nextHungerTick = 0f;
+        [SerializeField]
+        private HungerMeter _hungerMeter;
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        CalculateHunger();
-    }
-
-    public void CalculateHunger()
-    {
-        // Increase hunger at regular intervals
-        if (Time.time > _nextHungerTick)
+        // Use this for initialization
+        void Start()
         {
-            _nextHungerTick = Time.time + hungerRate;
-            hungerLevel += hungerIncrement;
+
         }
 
-        _hungerMeter.SetHunger(hungerLevel);
-
-        if (hungerLevel >= maxHungerLevel)
+        // Update is called once per frame
+        void Update()
         {
-            Debug.Log($"Game over: you starved");
+            CalculateHunger();
+        }
+
+        public void CalculateHunger()
+        {
+            // Increase hunger at regular intervals
+            if (Time.time > _nextHungerTick)
+            {
+                _nextHungerTick = Time.time + hungerRate;
+                hungerLevel += hungerIncrement;
+            }
+
+            _hungerMeter.SetHunger(hungerLevel);
+
+            if (hungerLevel >= maxHungerLevel)
+            {
+                Debug.Log($"Game over: you starved");
+            }
         }
     }
 }

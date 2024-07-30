@@ -6,7 +6,7 @@
 
         public float Intensity { get; set; }
 
-        public float ActivationTime { get; set; }
+        public float TimeToExpire { get; set; }
 
         public float Duration { get; set; }
 

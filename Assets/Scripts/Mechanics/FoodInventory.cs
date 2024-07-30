@@ -3,33 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FoodInventory : MonoBehaviour
+namespace Assets.Scripts.Mechanics
 {
-    private GameObject[] _foodItems;
-    public int foodCount;
-
-    public GameObject counterDisplay;
-    private Text _counterText;
-
-    // Start is called before the first frame update
-    void Start()
+    public class FoodInventory : MonoBehaviour
     {
-        _counterText = counterDisplay.GetComponent<Text>();
-    }
+        private GameObject[] _foodItems;
+        public int foodCount;
 
-    // Update is called once per frame
-    void Update()
-    {
-        _foodItems = GameObject.FindGameObjectsWithTag("Food");
-        if (foodCount != _foodItems.Length)
+        public GameObject counterDisplay;
+        private Text _counterText;
+
+        // Start is called before the first frame update
+        void Start()
         {
-            foodCount = _foodItems.Length;
-            _UpdateFoodCounter(foodCount);
+            _counterText = counterDisplay.GetComponent<Text>();
         }
-    }
 
-    void _UpdateFoodCounter(int foodCount)
-    {
-        _counterText.text = $"{foodCount}";
+        // Update is called once per frame
+        void Update()
+        {
+            _foodItems = GameObject.FindGameObjectsWithTag("Food");
+            if (foodCount != _foodItems.Length)
+            {
+                foodCount = _foodItems.Length;
+                _UpdateFoodCounter(foodCount);
+            }
+        }
+
+        void _UpdateFoodCounter(int foodCount)
+        {
+            _counterText.text = $"{foodCount}";
+        }
     }
 }

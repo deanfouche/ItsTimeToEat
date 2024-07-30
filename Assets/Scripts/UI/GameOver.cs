@@ -1,19 +1,22 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class GameOver : MonoBehaviour
+namespace Assets.Scripts.UI
 {
-    public GameObject gameOverScreen;
-
-    // Use this for initialization
-    void Start()
+    public class GameOver : MonoBehaviour
     {
+        public GameObject gameOverScreen;
 
-    }
+        // Use this for initialization
+        void Start()
+        {
 
-    // Update is called once per frame
-    void Update()
-    {
+        }
 
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
     }
 }

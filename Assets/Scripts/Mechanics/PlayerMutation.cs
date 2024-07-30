@@ -1,81 +1,98 @@
 ﻿using Assets.Scripts.Gameplay;
+using Assets.Scripts.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMutation : MonoBehaviour
+namespace Assets.Scripts.Mechanics
 {
-    public GameObject player;
-    public List<IMutator> mutators = new List<IMutator>();
-
-    private FirstPersonController _playerController;
-
-    // Use this for initialization
-    void Start()
+    public class PlayerMutation : MonoBehaviour
     {
-        _playerController = player.GetComponent<FirstPersonController>();
-    }
+        public GameObject player;
+        public List<IMutator> mutators = new List<IMutator>();
+        public GameObject mutationDisplay;
 
-    // Update is called once per frame
-    void Update()
-    {
-        foreach (var mutator in mutators)
+        private FirstPersonController _playerController;
+
+        // Use this for initialization
+        void Start()
         {
-            if (Time.time > mutator.ActivationTime + mutator.Duration)
+            _playerController = player.GetComponent<FirstPersonController>();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            foreach (var mutator in mutators)
             {
-                deactivateMutation(mutator);
+                if (Time.time > mutator.TimeToExpire)
+                {
+                    deactivateMutation(mutator);
+                }
+            }
+
+            mutators.RemoveAll(m => !m.IsActive);
+        }
+
+        public void applyMutation(IMutator mutator)
+        {
+            if (!mutators.Exists(m => m.Mutation == mutator.Mutation))
+            {
+                switch (mutator.Mutation)
+                {
+                    case Mutation.SpeedBoost:
+                        _playerController.walkSpeed += mutator.Intensity;
+                        _playerController.sprintSpeed += mutator.Intensity;
+                        break;
+                    case Mutation.ThrowBoost:
+                        break;
+                    case Mutation.StrengthBoost:
+                        break;
+                    case Mutation.Armor:
+                        break;
+                    default:
+                        break;
+                }
+                mutator.TimeToExpire = Time.time + mutator.Duration;
+                mutator.IsActive = true;
+                mutators.Add(mutator);
+
+                // add a UI indicator of the lifespan of the mutation
+                Mutations mutationsUI = mutationDisplay.GetComponent<Mutations>();
+                if (mutationsUI != null)
+                {
+                    mutationsUI.AddMutationIndicator(mutator);
+                }
             }
         }
 
-        mutators.RemoveAll(m => !m.IsActive);
-    }
-
-    public void applyMutation(IMutator mutator)
-    {
-        if (!mutators.Exists(m => m.Mutation == mutator.Mutation))
+        void deactivateMutation(IMutator mutator)
         {
-            switch (mutator.Mutation)
+            if (mutators.Exists(m => m.Mutation == mutator.Mutation))
             {
-                case Mutation.SpeedBoost:
-                    _playerController.walkSpeed += mutator.Intensity;
-                    _playerController.sprintSpeed += mutator.Intensity;
-                    break;
-                case Mutation.ThrowBoost:
-                    break;
-                case Mutation.StrengthBoost:
-                    break;
-                case Mutation.Armor:
-                    break;
-                default:
-                    break;
+                switch (mutator.Mutation)
+                {
+                    case Mutation.SpeedBoost:
+                        var playerController = player.GetComponent<FirstPersonController>();
+                        playerController.walkSpeed -= mutator.Intensity;
+                        playerController.sprintSpeed -= mutator.Intensity;
+                        break;
+                    case Mutation.ThrowBoost:
+                        break;
+                    case Mutation.StrengthBoost:
+                        break;
+                    case Mutation.Armor:
+                        break;
+                    default:
+                        break;
+                }
+                mutator.IsActive = false;// add a UI indicator of the lifespan of the mutation
+                Mutations mutationsUI = mutationDisplay.GetComponent<Mutations>();
+                if (mutationsUI != null)
+                {
+                    mutationsUI.RemoveMutationIndicator(mutator.Mutation);
+                }
             }
-            mutator.ActivationTime = Time.time;
-            mutator.IsActive = true;
-            mutators.Add(mutator);
-        }
-    }
-
-    void deactivateMutation(IMutator mutator)
-    {
-        if (mutators.Exists(m => m.Mutation == mutator.Mutation))
-        {
-            switch (mutator.Mutation)
-            {
-                case Mutation.SpeedBoost:
-                    var playerController = player.GetComponent<FirstPersonController>();
-                    playerController.walkSpeed -= mutator.Intensity;
-                    playerController.sprintSpeed -= mutator.Intensity;
-                    break;
-                case Mutation.ThrowBoost:
-                    break;
-                case Mutation.StrengthBoost:
-                    break;
-                case Mutation.Armor:
-                    break;
-                default:
-                    break;
-            }
-            mutator.IsActive = false;
         }
     }
 }

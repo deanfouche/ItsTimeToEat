@@ -2,25 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// A simple controller for switching between UI panels.
-/// </summary>
-public class MainUIController : MonoBehaviour
+namespace Assets.Scripts.UI
 {
-    public GameObject[] panels;
-
-    public void SetActivePanel(int index)
+    /// <summary>
+    /// A simple controller for switching between UI panels.
+    /// </summary>
+    public class MainUIController : MonoBehaviour
     {
-        for (var i = 0; i < panels.Length; i++)
+        public GameObject[] panels;
+
+        public void SetActivePanel(int index)
         {
-            var active = i == index;
-            var g = panels[i];
-            if (g.activeSelf != active) g.SetActive(active);
+            for (var i = 0; i < panels.Length; i++)
+            {
+                var active = i == index;
+                var g = panels[i];
+                if (g.activeSelf != active) g.SetActive(active);
+            }
         }
-    }
 
-    void OnEnable()
-    {
-        SetActivePanel(0);
+        void OnEnable()
+        {
+            SetActivePanel(0);
+        }
     }
 }
