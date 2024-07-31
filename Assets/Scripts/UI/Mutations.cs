@@ -28,7 +28,6 @@ namespace Assets.Scripts.UI
                 var mutationType = mutation.GetType();
 
                 GameObject indicatorToRemove = activeMutations.Find(indicator => indicator.name == mutation.ToString());
-                Debug.Log($"Mutation UI element: {indicatorToRemove}");
                 if (indicatorToRemove != null)
                 {
                     activeMutations.Remove(indicatorToRemove);

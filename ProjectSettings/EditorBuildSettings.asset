@@ -5,9 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/HouseInteriorPack/Basic Asset Pack Interior/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/TitleScreen.unity
+    guid: f3c4d42943f3dd4418adfc48ccb025a0
   - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: 886fa5ce77bdd1f45b85b09c05de082f

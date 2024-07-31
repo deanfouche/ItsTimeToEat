@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.UI
 {/// <summary>
@@ -101,7 +103,24 @@ namespace Assets.Scripts.UI
 
         void _ExitGame()
         {
-            Application.Quit();
+            LoadSceneAsync("TitleScreen");
+        }
+
+        public void LoadSceneAsync(string sceneName)
+        {
+            StartCoroutine(LoadYourAsyncScene(sceneName));
+        }
+
+        IEnumerator LoadYourAsyncScene(string sceneName)
+        {
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+
+            while (!asyncLoad.isDone)
+            {
+                float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
+                // Update a loading bar here if you have one
+                yield return null;
+            }
         }
     }
 }

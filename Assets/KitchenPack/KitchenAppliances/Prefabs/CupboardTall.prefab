@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1929616910799561925}
   - component: {fileID: 7196883099744408611}
   - component: {fileID: 9189965622181437898}
+  - component: {fileID: 1838627304194121085}
   m_Layer: 0
   m_Name: Cupboard
   m_TagString: Untagged
@@ -83,6 +84,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1838627304194121085
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491222150148854186}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3082250236548730855, guid: d47242c9dad9fd94da628bcf6fb36c2e, type: 3}
 --- !u!1 &930915301534266731
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,7 +132,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.509, y: 0.758, z: -4.8362}
-  m_LocalScale: {x: 0.74775, y: 2.246338, z: 1}
+  m_LocalScale: {x: 0.7477499, y: 2.246338, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7147524695294967703}
@@ -127,6 +150,7 @@ GameObject:
   - component: {fileID: 7147524695294967703}
   - component: {fileID: 3347920507801142620}
   - component: {fileID: 7211929713488261559}
+  - component: {fileID: 8073504319160787182}
   m_Layer: 0
   m_Name: CupboardDoor
   m_TagString: Untagged
@@ -199,3 +223,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8073504319160787182
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8878557149392524215}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3276227581388059358, guid: d47242c9dad9fd94da628bcf6fb36c2e, type: 3}
