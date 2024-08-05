@@ -26,5 +26,19 @@ namespace Assets.Scripts.Gameplay
 
             playerInteraction.GrabObject();
         }
+
+        public void ConsumeObjectInHand()
+        {
+            PlayerInteraction playerInteraction = player.GetComponentInChildren<PlayerInteraction>();
+
+            playerInteraction.ConsumeFood();
+        }
+
+        public void ReleaseTrownObjectInHand()
+        {
+            PlayerInteraction playerInteraction = player.GetComponentInChildren<PlayerInteraction>();
+
+            playerInteraction.ReleaseThrownObject();
+        }
     }
 }

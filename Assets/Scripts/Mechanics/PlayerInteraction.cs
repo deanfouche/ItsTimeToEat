@@ -31,45 +31,45 @@ namespace Assets.Scripts.Mechanics
         {
             #region Object interaction
 
-            if (_isEating) // animate eating food
-            {
-                if (Time.time < _timeToFinishFood)
-                {
-                    float timeLeft = _timeToFinishFood - Time.time;
-                }
-                else
-                {
-                    _isEating = false;
-                    GameObject consumedFood = _heldObj;
-                    // apply mutation to player if food has any
-                    IMutator mutation = consumedFood.GetComponent<IMutator>();
-                    if (mutation != null)
-                    {
-                        PlayerMutation playerMutation = player.GetComponent<PlayerMutation>();
-                        playerMutation.applyMutation(mutation);
-                    }
-                    _isHoldingObj = false;
-                    _heldObj = null;
-                    Destroy(consumedFood);
-                    this.player.GetComponent<Hunger>().hungerLevel -= 10f;
-                }
-            }
+            // if (_isEating) // animate eating food
+            // {
+            //     if (Time.time < _timeToFinishFood)
+            //     {
+            //         float timeLeft = _timeToFinishFood - Time.time;
+            //     }
+            //     else
+            //     {
+            //         _isEating = false;
+            //         GameObject consumedFood = _heldObj;
+            //         // apply mutation to player if food has any
+            //         IMutator mutation = consumedFood.GetComponent<IMutator>();
+            //         if (mutation != null)
+            //         {
+            //             PlayerMutation playerMutation = player.GetComponent<PlayerMutation>();
+            //             playerMutation.applyMutation(mutation);
+            //         }
+            //         _isHoldingObj = false;
+            //         _heldObj = null;
+            //         Destroy(consumedFood);
+            //         this.player.GetComponent<Hunger>().hungerLevel -= 10f;
+            //     }
+            // }
 
             if (Input.GetKeyDown(KeyCode.E)) // try to pick up object
             {
                 if (!_isHoldingObj) // if currently not holding anything
                 {
-                        // perform raycast to check if player is looking at object within pickuprange
-                        RaycastHit hit;
-                        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickUpRange))
+                    // perform raycast to check if player is looking at object within pickuprange
+                    RaycastHit hit;
+                    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickUpRange))
+                    {
+                        // make sure pickup tag is attached
+                        if (hit.transform.gameObject.tag == "CanPickUp" || hit.transform.gameObject.tag == "Food")
                         {
-                            // make sure pickup tag is attached
-                            if (hit.transform.gameObject.tag == "CanPickUp" || hit.transform.gameObject.tag == "Food")
-                            {
-                                // pass in object hit into the PickUpObject function
-                                PickUpObject(hit.transform.gameObject);
-                            }
+                            // pass in object hit into the PickUpObject function
+                            PickUpObject(hit.transform.gameObject);
                         }
+                    }
                     //if (!_isHoldingObj)
                     //{
                     //}
@@ -115,7 +115,24 @@ namespace Assets.Scripts.Mechanics
             rightHandAnimator.SetTrigger("EatFood");
 
             _isEating = true;
-            _timeToFinishFood = Time.time + _timeToEat;
+            // _timeToFinishFood = Time.time + _timeToEat;
+        }
+
+        public void ConsumeFood()
+        {
+            _isEating = false;
+            GameObject consumedFood = _heldObj;
+            // apply mutation to player if food has any
+            IMutator mutation = consumedFood.GetComponent<IMutator>();
+            if (mutation != null)
+            {
+                PlayerMutation playerMutation = player.GetComponent<PlayerMutation>();
+                playerMutation.applyMutation(mutation);
+            }
+            _isHoldingObj = false;
+            _heldObj = null;
+            Destroy(consumedFood);
+            this.player.GetComponent<Hunger>().hungerLevel -= 10f;
         }
 
         void PickUpObject(GameObject pickUpObj)
@@ -166,7 +183,10 @@ namespace Assets.Scripts.Mechanics
         void ThrowObject()
         {
             rightHandAnimator.SetTrigger("ThrowObject");
+        }
 
+        public void ReleaseThrownObject()
+        {
             //same as drop function, but add force to object before undefining it
             Physics.IgnoreCollision(_heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
             _heldObj.layer = 0;
