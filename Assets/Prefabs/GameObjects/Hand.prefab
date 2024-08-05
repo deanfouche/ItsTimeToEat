@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 859736012349882734}
   - component: {fileID: 7882192678575255257}
   - component: {fileID: 4149467929484319733}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Proximal Phalanx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 8398948412091906925}
   - component: {fileID: 676733209363988275}
   - component: {fileID: 4261233677883178921}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Muscle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -317,8 +317,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 506008069243296952}
-  - component: {fileID: 5748844264463805241}
-  m_Layer: 0
+  - component: {fileID: 3179332880300650368}
+  - component: {fileID: 5626097321193588922}
+  m_Layer: 3
   m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -335,7 +336,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 17.558428, y: 2.0009692, z: -4.483198}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 715748881112439753}
@@ -343,9 +344,10 @@ Transform:
   - {fileID: 4901239400033672947}
   - {fileID: 9205060010434520803}
   - {fileID: 8169728660248486459}
+  - {fileID: 3647368326431719514}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &5748844264463805241
+--- !u!95 &3179332880300650368
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -366,6 +368,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5626097321193588922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042008501582133774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60b7a7fa538f8234295dabbff1cb59d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!1 &1806057829440958818
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,7 +390,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9205060010434520803}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Pinky
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +424,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4901239400033672947}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Index
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,7 +462,7 @@ GameObject:
   - component: {fileID: 3423092868335404650}
   - component: {fileID: 4381754111927795833}
   - component: {fileID: 1374228613868360954}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Muscle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -581,7 +596,7 @@ GameObject:
   - component: {fileID: 7973623730190165405}
   - component: {fileID: 8361395855187996737}
   - component: {fileID: 6982142227274202128}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Proximal Phalanx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -751,7 +766,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4140010001730125557}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Thumb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -785,7 +800,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8169728660248486459}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Middle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -824,7 +839,7 @@ GameObject:
   - component: {fileID: 1026732994277155111}
   - component: {fileID: 1514392320781041158}
   - component: {fileID: 4140516075098146430}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Middle Phalanx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -985,6 +1000,113 @@ HingeJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!1 &3800037336107679300
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2109616210955117734}
+  - component: {fileID: 1551349166923983475}
+  - component: {fileID: 4184253522805633048}
+  - component: {fileID: 4888204218535481453}
+  m_Layer: 3
+  m_Name: Capsule
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2109616210955117734
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3800037336107679300}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.054244, y: 0.054244, z: 0.054244}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3647368326431719514}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &1551349166923983475
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3800037336107679300}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &4184253522805633048
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3800037336107679300}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &4888204218535481453
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3800037336107679300}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4709206759936567445
 GameObject:
   m_ObjectHideFlags: 0
@@ -999,7 +1121,7 @@ GameObject:
   - component: {fileID: 1248796420451380695}
   - component: {fileID: 2393649072454261256}
   - component: {fileID: 979719756827724700}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Proximal Phalanx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1173,7 +1295,7 @@ GameObject:
   - component: {fileID: 4049352990854809294}
   - component: {fileID: 1261645311296276358}
   - component: {fileID: 5569027030270898306}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Muscle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1307,7 +1429,7 @@ GameObject:
   - component: {fileID: 970287295874990434}
   - component: {fileID: 2076541296902185046}
   - component: {fileID: 1095190579552016786}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Middle Phalanx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1481,7 +1603,7 @@ GameObject:
   - component: {fileID: 9012692719420375422}
   - component: {fileID: 2533247454118284828}
   - component: {fileID: 7434288185933769946}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1603,6 +1725,38 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &6620106048748459444
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3647368326431719514}
+  m_Layer: 3
+  m_Name: HoldPosObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3647368326431719514
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6620106048748459444}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: 0.97, y: 0.34, z: -0.11236574}
+  m_LocalScale: {x: 4.494634, y: 4.494634, z: 4.494634}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2109616210955117734}
+  m_Father: {fileID: 506008069243296952}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6676739429157833748
 GameObject:
   m_ObjectHideFlags: 0
@@ -1617,7 +1771,7 @@ GameObject:
   - component: {fileID: 6610818182482984851}
   - component: {fileID: 5715185126461586366}
   - component: {fileID: 3567253395050914900}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Metacarpal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1791,7 +1945,7 @@ GameObject:
   - component: {fileID: 8910715388149194672}
   - component: {fileID: 7697232338281146159}
   - component: {fileID: 2179065593874514996}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Muscle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1925,7 +2079,7 @@ GameObject:
   - component: {fileID: 1186328952043735186}
   - component: {fileID: 8550508108411060988}
   - component: {fileID: 6331149308381970481}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Middle Phalanx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2100,7 +2254,7 @@ GameObject:
   - component: {fileID: 3816651864434852219}
   - component: {fileID: 3232150600176086520}
   - component: {fileID: 3400995173700025491}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Proximal Phalanx
   m_TagString: Untagged
   m_Icon: {fileID: 0}

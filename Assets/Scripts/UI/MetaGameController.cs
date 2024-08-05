@@ -1,3 +1,4 @@
+using Assets.Scripts.Mechanics;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -28,6 +29,8 @@ namespace Assets.Scripts.UI
 
         [SerializeField]
         FirstPersonController playerController;
+        [SerializeField]
+        PlayerInteraction playerInteraction;
 
         void OnEnable()
         {
@@ -44,7 +47,7 @@ namespace Assets.Scripts.UI
             {
                 _ToggleMainMenu(showMenu);
 
-                _TogglePlayerMovement(!showMenu);
+                _TogglePlayerControl(!showMenu);
             }
         }
 
@@ -67,10 +70,11 @@ namespace Assets.Scripts.UI
             this.showMainCanvas = show;
         }
 
-        void _TogglePlayerMovement(bool canMove)
+        void _TogglePlayerControl(bool hasControl)
         {
-            this.playerController.cameraCanMove = canMove;
-            this.playerController.playerCanMove = canMove;
+            this.playerController.cameraCanMove = hasControl;
+            this.playerController.playerCanMove = hasControl;
+            this.playerInteraction.playerCanInteract = hasControl;
         }
 
         void Update()

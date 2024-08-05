@@ -8,100 +8,76 @@ namespace Assets.Scripts.Mechanics
     public class PlayerInteraction : MonoBehaviour
     {
         public GameObject player;
+        private int LayerNumber; //layer index
+        public Animator rightHandAnimator;
+
         public Transform holdPos;
-        public float throwForce = 500f; // force at which the object is thrown at
         public float pickUpRange = 2f; // how far the player can pickup the object from
+        public float throwForce = 500f; // force at which the object is thrown at
         private GameObject _heldObj; // object which we pick up
         private Rigidbody _heldObjRb; // rigidbody of object we pick up
+
+        public bool playerCanInteract;
         private bool _isHoldingObj;
-
         private bool _isEating = false;
-        [SerializeField]
-        private float _timeToEat = 1f;
-        private float _timeToFinishFood = 0f;
-
-        public Animator rightHandAnimator;
 
         void Start()
         {
-
+            LayerNumber = LayerMask.NameToLayer("Always on top");
+            playerCanInteract = true;
         }
 
         void Update()
         {
             #region Object interaction
 
-            // if (_isEating) // animate eating food
-            // {
-            //     if (Time.time < _timeToFinishFood)
-            //     {
-            //         float timeLeft = _timeToFinishFood - Time.time;
-            //     }
-            //     else
-            //     {
-            //         _isEating = false;
-            //         GameObject consumedFood = _heldObj;
-            //         // apply mutation to player if food has any
-            //         IMutator mutation = consumedFood.GetComponent<IMutator>();
-            //         if (mutation != null)
-            //         {
-            //             PlayerMutation playerMutation = player.GetComponent<PlayerMutation>();
-            //             playerMutation.applyMutation(mutation);
-            //         }
-            //         _isHoldingObj = false;
-            //         _heldObj = null;
-            //         Destroy(consumedFood);
-            //         this.player.GetComponent<Hunger>().hungerLevel -= 10f;
-            //     }
-            // }
-
-            if (Input.GetKeyDown(KeyCode.E)) // try to pick up object
+            if (playerCanInteract)
             {
-                if (!_isHoldingObj) // if currently not holding anything
+                if (Input.GetKeyDown(KeyCode.E)) // try to pick up object
                 {
-                    // perform raycast to check if player is looking at object within pickuprange
-                    RaycastHit hit;
-                    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickUpRange))
+                    if (!_isHoldingObj) // if currently not holding anything
                     {
-                        // make sure pickup tag is attached
-                        if (hit.transform.gameObject.tag == "CanPickUp" || hit.transform.gameObject.tag == "Food")
+                        // perform raycast to check if player is looking at object within pickuprange
+                        RaycastHit hit;
+                        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickUpRange))
                         {
-                            // pass in object hit into the PickUpObject function
-                            PickUpObject(hit.transform.gameObject);
+                            // make sure pickup tag is attached
+                            if (hit.transform.gameObject.tag == "CanPickUp" || hit.transform.gameObject.tag == "Food")
+                            {
+                                // pass in object hit into the PickUpObject function
+                                PickUpObject(hit.transform.gameObject);
+                            }
                         }
                     }
-                    //if (!_isHoldingObj)
-                    //{
-                    //}
-                }
-                else
-                {
-                    StopClipping(); // prevents object from clipping through walls
-                    DropObject();
-                }
-            }
-
-            if (_isHoldingObj) // player is holding food object
-            {
-                MoveObject(); // keep object position at holdPos
-
-                if (Input.GetKey(KeyCode.Mouse1))
-                {
-                    // throw held object
-                    if (Input.GetKeyDown(KeyCode.Mouse0)) // Mous0 (leftclick) is used to throw, change this if you want another button to be used)
+                    else
                     {
-                        StopClipping();
-                        ThrowObject();
+                        StopClipping(); // prevents object from clipping through walls
+                        DropObject();
                     }
                 }
-                else
+
+                if (_isHoldingObj) // player is holding food object
                 {
-                    // eat the food
-                    if (Input.GetKeyDown(KeyCode.Mouse0))
+                    MoveObject(); // keep object position at holdPos
+
+                    if (Input.GetKey(KeyCode.Mouse1))
                     {
-                        if (_heldObj.tag == "Food")
+                        // throw held object
+                        if (Input.GetKeyDown(KeyCode.Mouse0)) // Mous0 (leftclick) is used to throw, change this if you want another button to be used)
                         {
-                            EatFood();
+                            StopClipping();
+                            ThrowObject();
+                        }
+                    }
+                    else
+                    {
+                        // eat the food
+                        if (Input.GetKeyDown(KeyCode.Mouse0))
+                        {
+                            if (_heldObj.tag == "Food")
+                            {
+                                EatFood();
+                            }
                         }
                     }
                 }
@@ -153,8 +129,32 @@ namespace Assets.Scripts.Mechanics
                 _heldObjRb.isKinematic = true;
                 _heldObjRb.transform.parent = holdPos.transform; //parent object to holdposition
                 _heldObjRb.transform.rotation = holdPos.rotation;
+                _heldObj.layer = LayerNumber;
                 //make sure object doesnt collide with player, it can cause weird bugs
                 Physics.IgnoreCollision(_heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), true);
+
+                for (int i = 0; i < _heldObj.transform.childCount; i++)
+                {
+                    var childTransform = _heldObj.transform.GetChild(i);
+                    var child = childTransform.gameObject;
+
+                    Rigidbody childRb;
+                    child.TryGetComponent(out childRb);
+                    if (childRb != null)
+                    {
+                        childRb.isKinematic = true;
+                    }
+                    child.layer = LayerNumber;
+
+                    //make sure object doesnt collide with player, it can cause weird bugs
+                    Collider childCollider;
+                    child.TryGetComponent(out childCollider);
+                    if (childCollider != null)
+                    {
+                        Physics.IgnoreCollision(childCollider, player.GetComponent<Collider>(), true);
+                    }
+                }
+
                 _isHoldingObj = true;
             }
         }
@@ -165,7 +165,32 @@ namespace Assets.Scripts.Mechanics
 
             // re-enable collision with player
             Physics.IgnoreCollision(_heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
+            _heldObj.layer = 0;
             _heldObjRb.isKinematic = false;
+
+            for (int i = 0; i < _heldObj.transform.childCount; i++)
+            {
+                var childTransform = _heldObj.transform.GetChild(i);
+                var child = childTransform.gameObject;
+
+                // re-enable collision with player
+                Collider childCollider;
+                child.TryGetComponent(out childCollider);
+                if (childCollider != null)
+                {
+                    Physics.IgnoreCollision(childCollider, player.GetComponent<Collider>(), false);
+                }
+
+                child.layer = 0;
+
+                Rigidbody childRb;
+                child.TryGetComponent(out childRb);
+                if (childRb != null)
+                {
+                    childRb.isKinematic = false;
+                }
+            }
+
             _heldObj.transform.parent = null; //unparent object
             _isHoldingObj = false;
             _heldObj = null; //undefine game object
@@ -191,6 +216,30 @@ namespace Assets.Scripts.Mechanics
             Physics.IgnoreCollision(_heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
             _heldObj.layer = 0;
             _heldObjRb.isKinematic = false;
+
+            for (int i = 0; i < _heldObj.transform.childCount; i++)
+            {
+                var childTransform = _heldObj.transform.GetChild(i);
+                var child = childTransform.gameObject;
+
+                // re-enable collision with player
+                Collider childCollider;
+                child.TryGetComponent(out childCollider);
+                if (childCollider != null)
+                {
+                    Physics.IgnoreCollision(childCollider, player.GetComponent<Collider>(), false);
+                }
+
+                child.layer = 0;
+
+                Rigidbody childRb;
+                child.TryGetComponent(out childRb);
+                if (childRb != null)
+                {
+                    childRb.isKinematic = false;
+                }
+            }
+
             _heldObj.transform.parent = null;
             _heldObjRb.AddForce(transform.forward * throwForce);
             _isHoldingObj = false;
