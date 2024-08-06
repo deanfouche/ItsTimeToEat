@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Assets.Scripts.UI
 {
-    public class GameOver : MonoBehaviour
+    public class Victory : MonoBehaviour
     {
         [SerializeField]
         MetaGameController metaGameController;
-        public bool isGameOver;
+        public bool isVictory;
 
         // Use this for initialization
         void Start()
@@ -21,15 +21,15 @@ namespace Assets.Scripts.UI
 
         }
 
-        public void PlayerStarved()
+        public void AllFoodConsumed()
         {
-            TriggerGameOver("You starved!");
+            _TriggerVictory("You ate all the food!");
         }
 
-        void TriggerGameOver(string gameOverMessage)
+        void _TriggerVictory(string victoryMessage)
         {
-            isGameOver = true;
-            metaGameController.ToggleGameOver(true);
+            isVictory = true;
+            metaGameController.ToggleVictory(true);
         }
     }
 }

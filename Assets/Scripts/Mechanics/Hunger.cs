@@ -6,7 +6,8 @@ namespace Assets.Scripts.Mechanics
 {
     public class Hunger : MonoBehaviour
     {
-        public GameObject player;
+        public GameOver gameOver;
+
         public float maxHungerLevel = 100f;
         public float hungerLevel = 0f;
         public float hungerIncrement = 5f;
@@ -24,7 +25,10 @@ namespace Assets.Scripts.Mechanics
         // Update is called once per frame
         void Update()
         {
-            CalculateHunger();
+            if (!gameOver.isGameOver)
+            {
+                CalculateHunger();
+            }
         }
 
         public void CalculateHunger()
@@ -40,7 +44,7 @@ namespace Assets.Scripts.Mechanics
 
             if (hungerLevel >= maxHungerLevel)
             {
-                Debug.Log($"Game over: you starved");
+                gameOver.PlayerStarved();
             }
         }
     }

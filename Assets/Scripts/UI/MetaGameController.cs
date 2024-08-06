@@ -21,11 +21,18 @@ namespace Assets.Scripts.UI
         public Canvas[] gamePlayCanvasii;
 
         /// <summary>
-        /// The gameOver object which used for the end game.
+        /// The GameOver object which used for the end game.
         /// </summary>
         public GameOver gameOver;
 
-        bool showMainCanvas = false;
+        /// <summary>
+        /// The Victory object which used for the completing the level.
+        /// </summary>
+        public Victory victory;
+
+        bool _showMainCanvas = false;
+        bool _showVictoryCanvas = false;
+        bool _showGameOverCanvas = false;
 
         [SerializeField]
         FirstPersonController playerController;
@@ -34,7 +41,9 @@ namespace Assets.Scripts.UI
 
         void OnEnable()
         {
-            _ToggleMainMenu(showMainCanvas);
+            _ToggleGameCanvas(_showMainCanvas, mainMenu.gameObject);
+            _ToggleGameCanvas(_showVictoryCanvas, gameOver.gameObject);
+            _ToggleGameCanvas(_showGameOverCanvas, victory.gameObject);
         }
 
         /// <summary>
@@ -43,31 +52,35 @@ namespace Assets.Scripts.UI
         /// <param name="showMenu"></param>
         public void ToggleMainMenu(bool showMenu)
         {
-            if (this.showMainCanvas != showMenu)
+            if (this._showMainCanvas != showMenu)
             {
-                _ToggleMainMenu(showMenu);
+                _ToggleGameCanvas(showMenu, mainMenu.gameObject);
+                this._showMainCanvas = showMenu;
 
                 _TogglePlayerControl(!showMenu);
             }
         }
 
-        void _ToggleMainMenu(bool show)
+        public void ToggleGameOver(bool showGameOverScreen)
         {
-            if (show)
+            if (this._showGameOverCanvas != showGameOverScreen)
             {
-                Time.timeScale = 0;
-                mainMenu.gameObject.SetActive(true);
-                foreach (var i in gamePlayCanvasii) i.gameObject.SetActive(false);
-                Cursor.lockState = CursorLockMode.None;
+                _ToggleGameCanvas(showGameOverScreen, gameOver.gameObject);
+                this._showGameOverCanvas = showGameOverScreen;
+
+                _TogglePlayerControl(!showGameOverScreen);
             }
-            else
+        }
+
+        public void ToggleVictory(bool showVictoryScreen)
+        {
+            if (this._showVictoryCanvas != showVictoryScreen)
             {
-                Time.timeScale = 1;
-                mainMenu.gameObject.SetActive(false);
-                foreach (var i in gamePlayCanvasii) i.gameObject.SetActive(true);
-                Cursor.lockState = CursorLockMode.Locked;
+                _ToggleGameCanvas(showVictoryScreen, victory.gameObject);
+                this._showVictoryCanvas = showVictoryScreen;
+
+                _TogglePlayerControl(!showVictoryScreen);
             }
-            this.showMainCanvas = show;
         }
 
         void _TogglePlayerControl(bool hasControl)
@@ -77,14 +90,35 @@ namespace Assets.Scripts.UI
             this.playerInteraction.playerCanInteract = hasControl;
         }
 
+        void _ToggleGameCanvas(bool show, GameObject canvas)
+        {
+            if (show)
+            {
+                Time.timeScale = 0;
+                canvas.SetActive(true);
+                foreach (var i in gamePlayCanvasii) i.gameObject.SetActive(false);
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                Time.timeScale = 1;
+                canvas.SetActive(false);
+                foreach (var i in gamePlayCanvasii) i.gameObject.SetActive(true);
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+        }
+
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
+            if (!gameOver.isGameOver && !victory.isVictory)
             {
-                ToggleMainMenu(showMenu: !showMainCanvas);
+                if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
+                {
+                    ToggleMainMenu(showMenu: !_showMainCanvas);
+                }
             }
 
-            if (this.showMainCanvas)
+            if (this._showMainCanvas)
             {
                 if (Input.GetKeyDown(KeyCode.Alpha1))
                 {
@@ -103,6 +137,23 @@ namespace Assets.Scripts.UI
                     _ExitGame();
                 }
             }
+
+            if (this._showGameOverCanvas)
+            {
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    _RestartGame();
+                }
+                if (Input.GetKeyDown(KeyCode.X))
+                {
+                    _ExitGame();
+                }
+            }
+        }
+
+        void _RestartGame()
+        {
+            LoadSceneAsync("Game");
         }
 
         void _ExitGame()

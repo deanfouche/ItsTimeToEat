@@ -1,3 +1,4 @@
+using Assets.Scripts.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,9 @@ namespace Assets.Scripts.Mechanics
         public GameObject counterDisplay;
         private Text _counterText;
 
+        [SerializeField]
+        Victory victory;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -27,6 +31,11 @@ namespace Assets.Scripts.Mechanics
             {
                 foodCount = _foodItems.Length;
                 _UpdateFoodCounter(foodCount);
+
+                if (foodCount <= 0)
+                {
+                    victory.AllFoodConsumed();
+                }
             }
         }
 
