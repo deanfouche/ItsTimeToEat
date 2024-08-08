@@ -61,5 +61,12 @@ namespace Assets.Scripts.UI
                 }
             }
         }
+
+        void _UpdateMutationDisplay()
+        {
+            this.indicatorObj = this.GetComponentInChildren<Image>();
+            this.indicatorNameObj = this.GetComponentInChildren<Text>();
+            this.indicatorNameObj.text = this.mutationUIObj.mutationName;
+        }
     }
 }

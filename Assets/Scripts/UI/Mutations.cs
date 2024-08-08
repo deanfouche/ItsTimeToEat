@@ -17,7 +17,7 @@ namespace Assets.Scripts.UI
             GameObject newMutationIndicator = Instantiate(uiMutationPrefab, parentContainer);
             newMutationIndicator.name = mutator.Mutation.ToString();
             MutationIndicator indicator = newMutationIndicator.GetComponent<MutationIndicator>();
-            indicator.AddMutationUIElement(mutator.Mutation.ToString(), mutator.TimeToExpire, mutator.Duration);
+            indicator.AddMutationUIElement(mutator.GetDescription(), mutator.TimeToExpire, mutator.Duration);
             activeMutations.Add(newMutationIndicator);
         }
 

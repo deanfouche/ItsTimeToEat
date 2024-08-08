@@ -28,13 +28,13 @@ namespace Assets.Scripts.Gameplay
         [Description("Speed boost")]
         SpeedBoost,
 
-        [Description("Throw boost")]
+        [Description("Yeet boost")]
         ThrowBoost,
 
         [Description("Strength boost")]
         StrengthBoost,
 
-        [Description("Speed boost")]
+        [Description("Armor boost")]
         Armor
     }
 }

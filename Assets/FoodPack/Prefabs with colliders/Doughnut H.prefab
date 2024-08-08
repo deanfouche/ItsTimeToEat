@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5914962648803628258}
   - component: {fileID: 5388157767974821358}
   - component: {fileID: 1876566756665199591}
+  - component: {fileID: 2857537330558959775}
   m_Layer: 0
   m_Name: Doughnut H
   m_TagString: Food
@@ -134,3 +135,15 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2355165438852751769, guid: 9cf6e01be49d8a44096112a877c2947b, type: 3}
+--- !u!114 &2857537330558959775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5266633486332818743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ea4e357fb03ea247ae48ff46c4eb2d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

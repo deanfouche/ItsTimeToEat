@@ -136,6 +136,10 @@ namespace Assets.Scripts.UI
                 {
                     _ExitGame();
                 }
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    _RestartGame();
+                }
             }
 
             if (this._showGameOverCanvas)

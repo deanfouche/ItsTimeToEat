@@ -84,7 +84,7 @@ namespace Assets.Scripts.Mechanics
                         playerController.sprintSpeed -= mutator.Intensity;
                         break;
                     case Mutation.ThrowBoost:
-                        _playerInteraction.throwForce += mutator.Intensity;
+                        _playerInteraction.throwForce -= mutator.Intensity;
                         break;
                     case Mutation.StrengthBoost:
                         break;
