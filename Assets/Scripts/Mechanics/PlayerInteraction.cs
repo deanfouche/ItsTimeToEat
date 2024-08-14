@@ -88,6 +88,7 @@ namespace Assets.Scripts.Mechanics
 
         void EatFood()
         {
+            playerCanInteract = false;
             rightHandAnimator.SetTrigger("EatFood");
 
             _isEating = true;
@@ -109,13 +110,15 @@ namespace Assets.Scripts.Mechanics
             _heldObj = null;
             Destroy(consumedFood);
             this.player.GetComponent<Hunger>().hungerLevel -= 10f;
+            playerCanInteract = true;
         }
 
         void PickUpObject(GameObject pickUpObj)
         {
             if (pickUpObj.GetComponent<Rigidbody>()) //make sure the object has a RigidBody
             {
-                _heldObj = pickUpObj; // assign object that was hit by the raycast to _heldObj (no longer == null)
+                playerCanInteract = false;
+                   _heldObj = pickUpObj; // assign object that was hit by the raycast to _heldObj (no longer == null)
                 _heldObjRb = pickUpObj.GetComponent<Rigidbody>(); //assign Rigidbody
 
                 rightHandAnimator.SetTrigger("GrabObject");
@@ -156,6 +159,7 @@ namespace Assets.Scripts.Mechanics
                 }
 
                 _isHoldingObj = true;
+                playerCanInteract = true;
             }
         }
 
@@ -207,6 +211,7 @@ namespace Assets.Scripts.Mechanics
 
         void ThrowObject()
         {
+            playerCanInteract = false;
             rightHandAnimator.SetTrigger("ThrowObject");
         }
 
@@ -244,6 +249,7 @@ namespace Assets.Scripts.Mechanics
             _heldObjRb.AddForce(transform.forward * throwForce);
             _isHoldingObj = false;
             _heldObj = null;
+            playerCanInteract = true;
         }
 
         void StopClipping() // function only called when dropping/throwing
