@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Gameplay;
+﻿using Assets.Scripts.Core;
+using Assets.Scripts.Gameplay;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,8 +19,8 @@ namespace Assets.Scripts.Mechanics
         private Rigidbody _heldObjRb; // rigidbody of object we pick up
 
         public bool playerCanInteract;
-        private bool _isHoldingObj;
-        private bool _isEating = false;
+        public bool isHoldingObj;
+        public bool isEating = false;
 
         void Start()
         {
@@ -35,7 +36,7 @@ namespace Assets.Scripts.Mechanics
             {
                 if (Input.GetKeyDown(KeyCode.E)) // try to pick up object
                 {
-                    if (!_isHoldingObj) // if currently not holding anything
+                    if (!isHoldingObj) // if currently not holding anything
                     {
                         // perform raycast to check if player is looking at object within pickuprange
                         RaycastHit hit;
@@ -56,48 +57,73 @@ namespace Assets.Scripts.Mechanics
                     }
                 }
 
-                if (_isHoldingObj) // player is holding food object
+                if (isHoldingObj) // player is holding food object
                 {
                     MoveObject(); // keep object position at holdPos
 
-                    if (Input.GetKey(KeyCode.Mouse1))
-                    {
-                        // throw held object
-                        if (Input.GetKeyDown(KeyCode.Mouse0)) // Mous0 (leftclick) is used to throw, change this if you want another button to be used)
-                        {
-                            StopClipping();
-                            ThrowObject();
-                        }
-                    }
-                    else
-                    {
-                        // eat the food
-                        if (Input.GetKeyDown(KeyCode.Mouse0))
-                        {
-                            if (_heldObj.tag == "Food")
-                            {
-                                EatFood();
-                            }
-                        }
-                    }
+                    //if (Input.GetKey(KeyCode.Mouse1))
+                    //{
+                    //    // throw held object
+                    //    if (Input.GetKeyDown(KeyCode.Mouse0)) // Mous0 (leftclick) is used to throw
+                    //    {
+                    //        StopClipping();
+                    //        ThrowObject();
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    eat the food
+                    //    if (Input.GetKeyDown(KeyCode.Mouse0))
+                    //    {
+                    //        if (_heldObj.tag == "Food")
+                    //        {
+                    //            EatFood();
+                    //        }
+                    //    }
+                    //}
                 }
             }
 
             #endregion
         }
 
+        #region Events
+
+        public void OnShortClickEvent()
+        {
+            if (isHoldingObj)
+            {
+                if (_heldObj.tag == "Food")
+                {
+                    EatFood();
+                }
+            }
+        }
+
+        public void OnLongClickEvent()
+        {
+            if (isHoldingObj)
+            {
+                StopClipping();
+                ThrowObject();
+            }
+        }
+
+        #endregion
+
+        #region Food Interactions
+
         void EatFood()
         {
             playerCanInteract = false;
             rightHandAnimator.SetTrigger("EatFood");
 
-            _isEating = true;
-            // _timeToFinishFood = Time.time + _timeToEat;
+            isEating = true;
         }
 
         public void ConsumeFood()
         {
-            _isEating = false;
+            isEating = false;
             GameObject consumedFood = _heldObj;
             // apply mutation to player if food has any
             IMutator mutation = consumedFood.GetComponent<IMutator>();
@@ -106,12 +132,16 @@ namespace Assets.Scripts.Mechanics
                 PlayerMutation playerMutation = player.GetComponent<PlayerMutation>();
                 playerMutation.applyMutation(mutation);
             }
-            _isHoldingObj = false;
+            isHoldingObj = false;
             _heldObj = null;
             Destroy(consumedFood);
             this.player.GetComponent<Hunger>().hungerLevel -= 10f;
             playerCanInteract = true;
         }
+
+        #endregion
+
+        #region Object Interactions
 
         void PickUpObject(GameObject pickUpObj)
         {
@@ -158,7 +188,7 @@ namespace Assets.Scripts.Mechanics
                     }
                 }
 
-                _isHoldingObj = true;
+                isHoldingObj = true;
                 playerCanInteract = true;
             }
         }
@@ -196,13 +226,13 @@ namespace Assets.Scripts.Mechanics
             }
 
             _heldObj.transform.parent = null; //unparent object
-            _isHoldingObj = false;
+            isHoldingObj = false;
             _heldObj = null; //undefine game object
         }
 
         void MoveObject()
         {
-            if (!_isEating)
+            if (!isEating)
             {
                 // keep object position the same as the holdPosition position
                 _heldObj.transform.position = holdPos.transform.position;
@@ -247,7 +277,7 @@ namespace Assets.Scripts.Mechanics
 
             _heldObj.transform.parent = null;
             _heldObjRb.AddForce(transform.forward * throwForce);
-            _isHoldingObj = false;
+            isHoldingObj = false;
             _heldObj = null;
             playerCanInteract = true;
         }
@@ -268,5 +298,7 @@ namespace Assets.Scripts.Mechanics
                                                                                                //if your player is small, change the -0.5f to a smaller number (in magnitude) ie: -0.1f
             }
         }
+
+        #endregion
     }
 }

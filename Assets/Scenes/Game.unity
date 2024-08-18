@@ -2809,6 +2809,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 518050540}
+    - targetCorrespondingSourceObject: {fileID: 4459864850019384750, guid: 6bacecc4f3df9584198879c73a6b6c36,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 518050546}
     - targetCorrespondingSourceObject: {fileID: 4459864851310106424, guid: 6bacecc4f3df9584198879c73a6b6c36,
         type: 3}
       insertIndex: -1
@@ -4743,6 +4747,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 518050519}
   mutationDisplay: {fileID: 297096396}
+--- !u!114 &518050546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518050519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d59a291285d35b24888f8acf66260d36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickDuration: 1
+  onLongClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1867798467}
+        m_TargetAssemblyTypeName: Assets.Scripts.Mechanics.PlayerInteraction, Assembly-CSharp
+        m_MethodName: OnLongClickEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onShortClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1867798467}
+        m_TargetAssemblyTypeName: Assets.Scripts.Mechanics.PlayerInteraction, Assembly-CSharp
+        m_MethodName: OnShortClickEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  playerInteraction: {fileID: 1867798467}
 --- !u!1 &540667044
 GameObject:
   m_ObjectHideFlags: 0
@@ -14798,6 +14846,8 @@ MonoBehaviour:
   pickUpRange: 2
   throwForce: 500
   playerCanInteract: 0
+  isHoldingObj: 0
+  isEating: 0
 --- !u!212 &1867798470
 SpriteRenderer:
   m_ObjectHideFlags: 0
