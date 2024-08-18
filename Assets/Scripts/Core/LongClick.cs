@@ -8,12 +8,14 @@ namespace Assets.Scripts.Core
 {
     public class LongClick : MonoBehaviour
     {
-        public float clickDuration = 0.5f;
-        public UnityEvent onLongClick;
+        public float clickDuration = 0.3f;
         public UnityEvent onShortClick;
+        public UnityEvent onLongClick;
+        public UnityEvent onLongClickRelease;
         public PlayerInteraction playerInteraction;
 
         bool _clicking = false;
+        bool _isLongClick = false;
         float _totalDownTime = 0;
 
         void Update()
@@ -34,19 +36,27 @@ namespace Assets.Scripts.Core
                 {
                     _totalDownTime += Time.deltaTime;
 
-                    if (_totalDownTime >= clickDuration)
+                    if (!_isLongClick && _totalDownTime >= clickDuration)
                     {
-                        _clicking = false;
+                        _isLongClick = true;
                         onLongClick.Invoke();
                     }
                 }
 
                 // If a first click detected, and we release before the
-                // duraction, do nothing, just cancel the click
+                // duration, do nothing, just cancel the click
                 if (_clicking && Input.GetMouseButtonUp(0))
                 {
-                    _clicking = false;
-                    onShortClick.Invoke();
+                    if (_isLongClick)
+                    {
+                        _clicking = false;
+                        _isLongClick = false;
+                        onLongClickRelease.Invoke();
+                    } else
+                    {
+                        _clicking = false;
+                        onShortClick.Invoke();
+                    }
                 }
             }
         }

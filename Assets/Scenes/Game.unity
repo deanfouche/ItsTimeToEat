@@ -4759,7 +4759,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d59a291285d35b24888f8acf66260d36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickDuration: 1
+  clickDuration: 0.5
+  onShortClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1867798467}
+        m_TargetAssemblyTypeName: Assets.Scripts.Mechanics.PlayerInteraction, Assembly-CSharp
+        m_MethodName: OnShortClickEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onLongClick:
     m_PersistentCalls:
       m_Calls:
@@ -4775,12 +4790,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onShortClick:
+  onLongClickRelease:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1867798467}
         m_TargetAssemblyTypeName: Assets.Scripts.Mechanics.PlayerInteraction, Assembly-CSharp
-        m_MethodName: OnShortClickEvent
+        m_MethodName: OnLongClickReleasedEvent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

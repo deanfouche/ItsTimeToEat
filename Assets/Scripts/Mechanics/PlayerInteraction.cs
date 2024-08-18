@@ -15,12 +15,15 @@ namespace Assets.Scripts.Mechanics
         public Transform holdPos;
         public float pickUpRange = 2f; // how far the player can pickup the object from
         public float throwForce = 500f; // force at which the object is thrown at
-        private GameObject _heldObj; // object which we pick up
-        private Rigidbody _heldObjRb; // rigidbody of object we pick up
+        GameObject _heldObj; // object which we pick up
+        Rigidbody _heldObjRb; // rigidbody of object we pick up
+
+        bool _isWindingUp;
+        float _totalWindUpTime = 0;
 
         public bool playerCanInteract;
         public bool isHoldingObj;
-        public bool isEating = false;
+        public bool isEating;
 
         void Start()
         {
@@ -60,28 +63,14 @@ namespace Assets.Scripts.Mechanics
                 if (isHoldingObj) // player is holding food object
                 {
                     MoveObject(); // keep object position at holdPos
-
-                    //if (Input.GetKey(KeyCode.Mouse1))
-                    //{
-                    //    // throw held object
-                    //    if (Input.GetKeyDown(KeyCode.Mouse0)) // Mous0 (leftclick) is used to throw
-                    //    {
-                    //        StopClipping();
-                    //        ThrowObject();
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    eat the food
-                    //    if (Input.GetKeyDown(KeyCode.Mouse0))
-                    //    {
-                    //        if (_heldObj.tag == "Food")
-                    //        {
-                    //            EatFood();
-                    //        }
-                    //    }
-                    //}
                 }
+            }
+
+            if (_isWindingUp)
+            {
+                _totalWindUpTime += Time.deltaTime;
+
+                _totalWindUpTime = Mathf.Clamp(_totalWindUpTime, 0, 1);
             }
 
             #endregion
@@ -101,6 +90,14 @@ namespace Assets.Scripts.Mechanics
         }
 
         public void OnLongClickEvent()
+        {
+            if (isHoldingObj)
+            {
+                WindUpObject();
+            }
+        }
+
+        public void OnLongClickReleasedEvent()
         {
             if (isHoldingObj)
             {
@@ -239,9 +236,16 @@ namespace Assets.Scripts.Mechanics
             }
         }
 
+        void WindUpObject()
+        {
+            _isWindingUp = true;
+            rightHandAnimator.SetTrigger("WindUpObject");
+        }
+
         void ThrowObject()
         {
             playerCanInteract = false;
+            _isWindingUp = false;
             rightHandAnimator.SetTrigger("ThrowObject");
         }
 
@@ -276,7 +280,8 @@ namespace Assets.Scripts.Mechanics
             }
 
             _heldObj.transform.parent = null;
-            _heldObjRb.AddForce(transform.forward * throwForce);
+            _heldObjRb.AddForce(transform.forward * throwForce * _totalWindUpTime);
+            _totalWindUpTime = 0;
             isHoldingObj = false;
             _heldObj = null;
             playerCanInteract = true;
