@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Gameplay;
+﻿using Assets.Scripts.Core;
+using Assets.Scripts.Gameplay;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,12 +15,15 @@ namespace Assets.Scripts.Mechanics
         public Transform holdPos;
         public float pickUpRange = 2f; // how far the player can pickup the object from
         public float throwForce = 500f; // force at which the object is thrown at
-        private GameObject _heldObj; // object which we pick up
-        private Rigidbody _heldObjRb; // rigidbody of object we pick up
+        GameObject _heldObj; // object which we pick up
+        Rigidbody _heldObjRb; // rigidbody of object we pick up
+
+        bool _isWindingUp;
+        float _totalWindUpTime = 0;
 
         public bool playerCanInteract;
-        private bool _isHoldingObj;
-        private bool _isEating = false;
+        public bool isHoldingObj;
+        public bool isEating;
 
         void Start()
         {
@@ -35,7 +39,7 @@ namespace Assets.Scripts.Mechanics
             {
                 if (Input.GetKeyDown(KeyCode.E)) // try to pick up object
                 {
-                    if (!_isHoldingObj) // if currently not holding anything
+                    if (!isHoldingObj) // if currently not holding anything
                     {
                         // perform raycast to check if player is looking at object within pickuprange
                         RaycastHit hit;
@@ -56,47 +60,67 @@ namespace Assets.Scripts.Mechanics
                     }
                 }
 
-                if (_isHoldingObj) // player is holding food object
+                if (isHoldingObj) // player is holding food object
                 {
                     MoveObject(); // keep object position at holdPos
-
-                    if (Input.GetKey(KeyCode.Mouse1))
-                    {
-                        // throw held object
-                        if (Input.GetKeyDown(KeyCode.Mouse0)) // Mous0 (leftclick) is used to throw, change this if you want another button to be used)
-                        {
-                            StopClipping();
-                            ThrowObject();
-                        }
-                    }
-                    else
-                    {
-                        // eat the food
-                        if (Input.GetKeyDown(KeyCode.Mouse0))
-                        {
-                            if (_heldObj.tag == "Food")
-                            {
-                                EatFood();
-                            }
-                        }
-                    }
                 }
+            }
+
+            if (_isWindingUp)
+            {
+                _totalWindUpTime += Time.deltaTime;
+
+                _totalWindUpTime = Mathf.Clamp(_totalWindUpTime, 0, 1);
             }
 
             #endregion
         }
 
+        #region Events
+
+        public void OnShortClickEvent()
+        {
+            if (isHoldingObj)
+            {
+                if (_heldObj.tag == "Food")
+                {
+                    EatFood();
+                }
+            }
+        }
+
+        public void OnLongClickEvent()
+        {
+            if (isHoldingObj)
+            {
+                WindUpObject();
+            }
+        }
+
+        public void OnLongClickReleasedEvent()
+        {
+            if (isHoldingObj)
+            {
+                StopClipping();
+                ThrowObject();
+            }
+        }
+
+        #endregion
+
+        #region Food Interactions
+
         void EatFood()
         {
+            playerCanInteract = false;
             rightHandAnimator.SetTrigger("EatFood");
 
-            _isEating = true;
-            // _timeToFinishFood = Time.time + _timeToEat;
+            isEating = true;
         }
 
         public void ConsumeFood()
         {
-            _isEating = false;
+            isEating = false;
             GameObject consumedFood = _heldObj;
             // apply mutation to player if food has any
             IMutator mutation = consumedFood.GetComponent<IMutator>();
@@ -105,17 +129,23 @@ namespace Assets.Scripts.Mechanics
                 PlayerMutation playerMutation = player.GetComponent<PlayerMutation>();
                 playerMutation.applyMutation(mutation);
             }
-            _isHoldingObj = false;
+            isHoldingObj = false;
             _heldObj = null;
             Destroy(consumedFood);
             this.player.GetComponent<Hunger>().hungerLevel -= 10f;
+            playerCanInteract = true;
         }
+
+        #endregion
+
+        #region Object Interactions
 
         void PickUpObject(GameObject pickUpObj)
         {
             if (pickUpObj.GetComponent<Rigidbody>()) //make sure the object has a RigidBody
             {
-                _heldObj = pickUpObj; // assign object that was hit by the raycast to _heldObj (no longer == null)
+                playerCanInteract = false;
+                   _heldObj = pickUpObj; // assign object that was hit by the raycast to _heldObj (no longer == null)
                 _heldObjRb = pickUpObj.GetComponent<Rigidbody>(); //assign Rigidbody
 
                 rightHandAnimator.SetTrigger("GrabObject");
@@ -155,7 +185,8 @@ namespace Assets.Scripts.Mechanics
                     }
                 }
 
-                _isHoldingObj = true;
+                isHoldingObj = true;
+                playerCanInteract = true;
             }
         }
 
@@ -192,21 +223,29 @@ namespace Assets.Scripts.Mechanics
             }
 
             _heldObj.transform.parent = null; //unparent object
-            _isHoldingObj = false;
+            isHoldingObj = false;
             _heldObj = null; //undefine game object
         }
 
         void MoveObject()
         {
-            if (!_isEating)
+            if (!isEating)
             {
                 // keep object position the same as the holdPosition position
                 _heldObj.transform.position = holdPos.transform.position;
             }
         }
 
+        void WindUpObject()
+        {
+            _isWindingUp = true;
+            rightHandAnimator.SetTrigger("WindUpObject");
+        }
+
         void ThrowObject()
         {
+            playerCanInteract = false;
+            _isWindingUp = false;
             rightHandAnimator.SetTrigger("ThrowObject");
         }
 
@@ -241,9 +280,11 @@ namespace Assets.Scripts.Mechanics
             }
 
             _heldObj.transform.parent = null;
-            _heldObjRb.AddForce(transform.forward * throwForce);
-            _isHoldingObj = false;
+            _heldObjRb.AddForce(transform.forward * throwForce * _totalWindUpTime);
+            _totalWindUpTime = 0;
+            isHoldingObj = false;
             _heldObj = null;
+            playerCanInteract = true;
         }
 
         void StopClipping() // function only called when dropping/throwing
@@ -262,5 +303,7 @@ namespace Assets.Scripts.Mechanics
                                                                                                //if your player is small, change the -0.5f to a smaller number (in magnitude) ie: -0.1f
             }
         }
+
+        #endregion
     }
 }
