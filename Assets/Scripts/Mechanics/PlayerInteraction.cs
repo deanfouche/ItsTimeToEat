@@ -55,11 +55,14 @@ namespace Assets.Scripts.Mechanics
                     }
                     else
                     {
-                        if (!_isWindingUp)
+                        if (_isWindingUp)
                         {
-                            StopClipping(); // prevents object from clipping through walls
-                            DropObject();
+                            _totalWindUpTime = 0;
+                            _isWindingUp = false;
                         }
+
+                        StopClipping(); // prevents object from clipping through walls
+                        DropObject();
                     }
                 }
 
@@ -77,23 +80,10 @@ namespace Assets.Scripts.Mechanics
 
                 if (Input.GetKeyDown(KeyCode.Mouse1))
                 {
-                    // Trigger cancel wind up
                     _totalWindUpTime = 0;
                     _isWindingUp = false;
 
                     rightHandAnimator.SetTrigger("CancelWindUp");
-                }
-
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    // Trigger cancel wind up
-                    _totalWindUpTime = 0;
-                    _isWindingUp = false;
-
-                    rightHandAnimator.SetTrigger("CancelWindUp");
-
-                    StopClipping(); // prevents object from clipping through walls
-                    DropObject();
                 }
             }
 
