@@ -55,8 +55,11 @@ namespace Assets.Scripts.Mechanics
                     }
                     else
                     {
-                        StopClipping(); // prevents object from clipping through walls
-                        DropObject();
+                        if (!_isWindingUp)
+                        {
+                            StopClipping(); // prevents object from clipping through walls
+                            DropObject();
+                        }
                     }
                 }
 
@@ -71,6 +74,27 @@ namespace Assets.Scripts.Mechanics
                 _totalWindUpTime += Time.deltaTime;
 
                 _totalWindUpTime = Mathf.Clamp(_totalWindUpTime, 0, 1);
+
+                if (Input.GetKeyDown(KeyCode.Mouse1))
+                {
+                    // Trigger cancel wind up
+                    _totalWindUpTime = 0;
+                    _isWindingUp = false;
+
+                    rightHandAnimator.SetTrigger("CancelWindUp");
+                }
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    // Trigger cancel wind up
+                    _totalWindUpTime = 0;
+                    _isWindingUp = false;
+
+                    rightHandAnimator.SetTrigger("CancelWindUp");
+
+                    StopClipping(); // prevents object from clipping through walls
+                    DropObject();
+                }
             }
 
             #endregion
@@ -99,7 +123,7 @@ namespace Assets.Scripts.Mechanics
 
         public void OnLongClickReleasedEvent()
         {
-            if (isHoldingObj)
+            if (isHoldingObj && _isWindingUp)
             {
                 StopClipping();
                 ThrowObject();
