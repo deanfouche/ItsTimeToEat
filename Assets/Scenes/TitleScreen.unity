@@ -1749,7 +1749,7 @@ GameObject:
   - component: {fileID: 1187424350}
   - component: {fileID: 1187424349}
   m_Layer: 0
-  m_Name: Main Theme Start
+  m_Name: Main Theme Intro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1765,7 +1765,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 71e2c84db2eda57468d70c113542b445, type: 3}
+  m_audioClip: {fileID: 8300000, guid: add359485d42fca499e05fa5f720a0a2, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
@@ -2559,7 +2559,7 @@ PrefabInstance:
     - target: {fileID: 4009130065698333722, guid: 9a1bd12ebb35d4dc997aa0c5494eda9b,
         type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
-      value: 1
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 4009130065698333724, guid: 9a1bd12ebb35d4dc997aa0c5494eda9b,
         type: 3}
