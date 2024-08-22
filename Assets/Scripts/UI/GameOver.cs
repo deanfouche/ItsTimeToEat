@@ -1,25 +1,14 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Assets.Scripts.UI
 {
     public class GameOver : MonoBehaviour
     {
-        [SerializeField]
-        MetaGameController metaGameController;
+        public UnityEvent gameOver;
+
         public bool isGameOver;
-
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
 
         public void PlayerStarved()
         {
@@ -29,7 +18,7 @@ namespace Assets.Scripts.UI
         void TriggerGameOver(string gameOverMessage)
         {
             isGameOver = true;
-            metaGameController.ToggleGameOver(true);
+            gameOver.Invoke();
         }
     }
 }

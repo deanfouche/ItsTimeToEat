@@ -1,6 +1,7 @@
 using Assets.Scripts.Mechanics;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.UI
@@ -41,9 +42,9 @@ namespace Assets.Scripts.UI
 
         void OnEnable()
         {
-            _ToggleGameCanvas(_showMainCanvas, mainMenu.gameObject);
-            _ToggleGameCanvas(_showVictoryCanvas, gameOver.gameObject);
-            _ToggleGameCanvas(_showGameOverCanvas, victory.gameObject);
+            ToggleGameCanvas(_showMainCanvas, mainMenu.gameObject);
+            ToggleGameCanvas(_showVictoryCanvas, gameOver.gameObject);
+            ToggleGameCanvas(_showGameOverCanvas, victory.gameObject);
         }
 
         /// <summary>
@@ -54,10 +55,10 @@ namespace Assets.Scripts.UI
         {
             if (this._showMainCanvas != showMenu)
             {
-                _ToggleGameCanvas(showMenu, mainMenu.gameObject);
+                ToggleGameCanvas(showMenu, mainMenu.gameObject);
                 this._showMainCanvas = showMenu;
 
-                _TogglePlayerControl(!showMenu);
+                TogglePlayerControl(!showMenu);
             }
         }
 
@@ -65,10 +66,10 @@ namespace Assets.Scripts.UI
         {
             if (this._showGameOverCanvas != showGameOverScreen)
             {
-                _ToggleGameCanvas(showGameOverScreen, gameOver.gameObject);
+                ToggleGameCanvas(showGameOverScreen, gameOver.gameObject);
                 this._showGameOverCanvas = showGameOverScreen;
 
-                _TogglePlayerControl(!showGameOverScreen);
+                TogglePlayerControl(!showGameOverScreen);
             }
         }
 
@@ -76,21 +77,21 @@ namespace Assets.Scripts.UI
         {
             if (this._showVictoryCanvas != showVictoryScreen)
             {
-                _ToggleGameCanvas(showVictoryScreen, victory.gameObject);
+                ToggleGameCanvas(showVictoryScreen, victory.gameObject);
                 this._showVictoryCanvas = showVictoryScreen;
 
-                _TogglePlayerControl(!showVictoryScreen);
+                TogglePlayerControl(!showVictoryScreen);
             }
         }
 
-        void _TogglePlayerControl(bool hasControl)
+        void TogglePlayerControl(bool hasControl)
         {
             this.playerController.cameraCanMove = hasControl;
             this.playerController.playerCanMove = hasControl;
             this.playerInteraction.playerCanInteract = hasControl;
         }
 
-        void _ToggleGameCanvas(bool show, GameObject canvas)
+        void ToggleGameCanvas(bool show, GameObject canvas)
         {
             if (show)
             {
@@ -134,11 +135,11 @@ namespace Assets.Scripts.UI
                 }
                 if (Input.GetKeyDown(KeyCode.X))
                 {
-                    _ExitGame();
+                    ExitGame();
                 }
                 if (Input.GetKeyDown(KeyCode.R))
                 {
-                    _RestartGame();
+                    RestartGame();
                 }
             }
 
@@ -146,21 +147,21 @@ namespace Assets.Scripts.UI
             {
                 if (Input.GetKeyDown(KeyCode.R))
                 {
-                    _RestartGame();
+                    RestartGame();
                 }
                 if (Input.GetKeyDown(KeyCode.X))
                 {
-                    _ExitGame();
+                    ExitGame();
                 }
             }
         }
 
-        void _RestartGame()
+        void RestartGame()
         {
             LoadSceneAsync("Game");
         }
 
-        void _ExitGame()
+        void ExitGame()
         {
             LoadSceneAsync("TitleScreen");
         }
@@ -177,7 +178,7 @@ namespace Assets.Scripts.UI
             while (!asyncLoad.isDone)
             {
                 float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
-                // Update a loading bar here if you have one
+                // Update a loading bar here
                 yield return null;
             }
         }

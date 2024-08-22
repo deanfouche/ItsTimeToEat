@@ -9,26 +9,35 @@ namespace Assets.Scripts.UI
     public class HungerMeter : MonoBehaviour
     {
         private Hunger _playerHunger;
-        public Slider hungerMeter;
+        private Slider hungerSlider;
+        private Image sliderImage;
 
         // Start is called before the first frame update
         void Start()
         {
             _playerHunger = GameObject.FindGameObjectWithTag("Player").GetComponent<Hunger>();
-            hungerMeter = GetComponent<Slider>();
-            hungerMeter.maxValue = _playerHunger.maxHungerLevel;
-            hungerMeter.value = _playerHunger.hungerLevel;
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            hungerSlider = GetComponent<Slider>();
+            hungerSlider.maxValue = _playerHunger.hungerStatus.MaxVal;
+            hungerSlider.value = _playerHunger.hungerStatus.CurrentVal;
+            sliderImage = GetComponentInChildren<Image>();
         }
 
         public void SetHunger(float hungerLevel)
         {
-            hungerMeter.value = hungerLevel;
+            hungerSlider.value = hungerLevel;
+
+            if (_playerHunger.hungerStatus.StatusPercentage > 50f)
+            {
+                sliderImage.color = new Color(0, 255, 0);
+            }
+            else if (_playerHunger.hungerStatus.StatusPercentage <= 50f && _playerHunger.hungerStatus.StatusPercentage > 25f)
+            {
+                sliderImage.color = new Color(255, 255, 0);
+            }
+            else
+            {
+                sliderImage.color = new Color(255, 0, 0);
+            }
         }
     }
 }

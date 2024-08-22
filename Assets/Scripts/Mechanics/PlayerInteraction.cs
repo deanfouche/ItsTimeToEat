@@ -42,11 +42,10 @@ namespace Assets.Scripts.Mechanics
                     if (!isHoldingObj) // if currently not holding anything
                     {
                         // perform raycast to check if player is looking at object within pickuprange
-                        RaycastHit hit;
-                        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickUpRange))
+                        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out RaycastHit hit, pickUpRange))
                         {
                             // make sure pickup tag is attached
-                            if (hit.transform.gameObject.tag == "CanPickUp" || hit.transform.gameObject.tag == "Food")
+                            if (hit.transform.gameObject.CompareTag("CanPickUp") || hit.transform.gameObject.CompareTag("Food"))
                             {
                                 // pass in object hit into the PickUpObject function
                                 PickUpObject(hit.transform.gameObject);
@@ -96,7 +95,7 @@ namespace Assets.Scripts.Mechanics
         {
             if (isHoldingObj)
             {
-                if (_heldObj.tag == "Food")
+                if (_heldObj.CompareTag("Food"))
                 {
                     EatFood();
                 }
@@ -141,12 +140,12 @@ namespace Assets.Scripts.Mechanics
             if (mutation != null)
             {
                 PlayerMutation playerMutation = player.GetComponent<PlayerMutation>();
-                playerMutation.applyMutation(mutation);
+                playerMutation.ApplyMutation(mutation);
             }
             isHoldingObj = false;
             _heldObj = null;
             Destroy(consumedFood);
-            this.player.GetComponent<Hunger>().hungerLevel -= 10f;
+            this.player.GetComponent<Hunger>().hungerStatus.IncreaseStatusMeter(10f);
             playerCanInteract = true;
         }
 
@@ -182,8 +181,7 @@ namespace Assets.Scripts.Mechanics
                     var childTransform = _heldObj.transform.GetChild(i);
                     var child = childTransform.gameObject;
 
-                    Rigidbody childRb;
-                    child.TryGetComponent(out childRb);
+                    child.TryGetComponent(out Rigidbody childRb);
                     if (childRb != null)
                     {
                         childRb.isKinematic = true;
@@ -191,8 +189,7 @@ namespace Assets.Scripts.Mechanics
                     child.layer = LayerNumber;
 
                     //make sure object doesnt collide with player, it can cause weird bugs
-                    Collider childCollider;
-                    child.TryGetComponent(out childCollider);
+                    child.TryGetComponent(out Collider childCollider);
                     if (childCollider != null)
                     {
                         Physics.IgnoreCollision(childCollider, player.GetComponent<Collider>(), true);
@@ -219,8 +216,7 @@ namespace Assets.Scripts.Mechanics
                 var child = childTransform.gameObject;
 
                 // re-enable collision with player
-                Collider childCollider;
-                child.TryGetComponent(out childCollider);
+                child.TryGetComponent(out Collider childCollider);
                 if (childCollider != null)
                 {
                     Physics.IgnoreCollision(childCollider, player.GetComponent<Collider>(), false);
@@ -228,8 +224,7 @@ namespace Assets.Scripts.Mechanics
 
                 child.layer = 0;
 
-                Rigidbody childRb;
-                child.TryGetComponent(out childRb);
+                child.TryGetComponent(out Rigidbody childRb);
                 if (childRb != null)
                 {
                     childRb.isKinematic = false;
@@ -276,8 +271,7 @@ namespace Assets.Scripts.Mechanics
                 var child = childTransform.gameObject;
 
                 // re-enable collision with player
-                Collider childCollider;
-                child.TryGetComponent(out childCollider);
+                child.TryGetComponent(out Collider childCollider);
                 if (childCollider != null)
                 {
                     Physics.IgnoreCollision(childCollider, player.GetComponent<Collider>(), false);
@@ -285,8 +279,7 @@ namespace Assets.Scripts.Mechanics
 
                 child.layer = 0;
 
-                Rigidbody childRb;
-                child.TryGetComponent(out childRb);
+                child.TryGetComponent(out Rigidbody childRb);
                 if (childRb != null)
                 {
                     childRb.isKinematic = false;
@@ -294,7 +287,7 @@ namespace Assets.Scripts.Mechanics
             }
 
             _heldObj.transform.parent = null;
-            _heldObjRb.AddForce(transform.forward * throwForce * _totalWindUpTime);
+            _heldObjRb.AddForce(_totalWindUpTime * throwForce * transform.forward);
             _totalWindUpTime = 0;
             isHoldingObj = false;
             _heldObj = null;

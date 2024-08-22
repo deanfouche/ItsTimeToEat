@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.UI;
+﻿using Assets.Scripts.Core;
+using Assets.Scripts.UI;
 using System.Collections;
 using UnityEngine;
 
@@ -7,22 +8,21 @@ namespace Assets.Scripts.Mechanics
     public class Hunger : MonoBehaviour
     {
         public GameOver gameOver;
+        public StatusMeter hungerStatus = new StatusMeter();
 
-        public float maxHungerLevel = 100f;
-        public float hungerLevel = 0f;
-        public float hungerIncrement = 5f;
-        public float hungerRate = 2f;
-        private float _nextHungerTick = 0f;
+        float hungerIncrement = 5f;
+        float hungerRate = 2f;
+        float _nextHungerTick = 2f;
+        float lastHungerVal = 0;
         [SerializeField]
-        private HungerMeter _hungerMeter;
+        HungerMeter _hungerMeter;
 
-        // Use this for initialization
-        void Start()
+        private void Start()
         {
-
+            lastHungerVal = hungerStatus.CurrentVal;
+            _nextHungerTick = Time.time + hungerRate;
         }
 
-        // Update is called once per frame
         void Update()
         {
             if (!gameOver.isGameOver)
@@ -37,12 +37,16 @@ namespace Assets.Scripts.Mechanics
             if (Time.time > _nextHungerTick)
             {
                 _nextHungerTick = Time.time + hungerRate;
-                hungerLevel += hungerIncrement;
+                hungerStatus.DecreaseStatusMeter(hungerIncrement);
             }
 
-            _hungerMeter.SetHunger(hungerLevel);
+            if (hungerStatus.CurrentVal != lastHungerVal)
+            {
+                lastHungerVal = hungerStatus.CurrentVal;
+                _hungerMeter.SetHunger(hungerStatus.CurrentVal);
+            }
 
-            if (hungerLevel >= maxHungerLevel)
+            if (hungerStatus.CurrentVal <= hungerStatus.MinVal)
             {
                 gameOver.PlayerStarved();
             }

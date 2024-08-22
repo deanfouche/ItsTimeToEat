@@ -32,14 +32,14 @@ namespace Assets.Scripts.Mechanics
                 if (mutator.TimeToExpire <= 0)
                 {
                     // End mutation
-                    deactivateMutation(mutator);
+                    DeactivateMutation(mutator);
                 }
             }
 
             mutators.RemoveAll(m => !m.IsActive);
         }
 
-        public void applyMutation(IMutator mutator)
+        public void ApplyMutation(IMutator mutator)
         {
             if (!mutators.Exists(m => m.Mutation == mutator.Mutation))
             {
@@ -72,7 +72,7 @@ namespace Assets.Scripts.Mechanics
             }
         }
 
-        void deactivateMutation(IMutator mutator)
+        void DeactivateMutation(IMutator mutator)
         {
             if (mutators.Exists(m => m.Mutation == mutator.Mutation))
             {
