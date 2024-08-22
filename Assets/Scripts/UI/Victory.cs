@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Assets.Scripts.UI
 {
     public class Victory : MonoBehaviour
     {
-        [SerializeField]
-        MetaGameController metaGameController;
+        public UnityEvent victory;
         public bool isVictory;
 
         // Use this for initialization
@@ -29,7 +29,7 @@ namespace Assets.Scripts.UI
         void _TriggerVictory(string victoryMessage)
         {
             isVictory = true;
-            metaGameController.ToggleVictory(true);
+            victory.Invoke();
         }
     }
 }

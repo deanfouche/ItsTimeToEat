@@ -1529,6 +1529,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4009130065698333722, guid: 9a1bd12ebb35d4dc997aa0c5494eda9b,
+        type: 3}
+      propertyPath: m_VertexColorAlwaysGammaSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4009130065698333722, guid: 9a1bd12ebb35d4dc997aa0c5494eda9b,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 4009130065698333724, guid: 9a1bd12ebb35d4dc997aa0c5494eda9b,
         type: 3}
       propertyPath: panels.Array.size
@@ -3182,7 +3192,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a111d42d46c55141bfebdd8af4a9ce3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hungerMeter: {fileID: 265725249}
 --- !u!1 &294402962
 GameObject:
   m_ObjectHideFlags: 0
@@ -4716,10 +4725,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOver: {fileID: 1711813150}
-  maxHungerLevel: 100
-  hungerLevel: 0
-  hungerIncrement: 5
-  hungerRate: 4
   _hungerMeter: {fileID: 265725250}
 --- !u!114 &518050534 stripped
 MonoBehaviour:
@@ -6418,7 +6423,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -12069,7 +12074,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -14005,7 +14010,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb004d90c9789014a9e27a9cc1e79ff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  metaGameController: {fileID: 1827952525}
+  gameOver:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1827952525}
+        m_TargetAssemblyTypeName: Assets.Scripts.UI.MetaGameController, Assembly-CSharp
+        m_MethodName: ToggleGameOver
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   isGameOver: 0
 --- !u!223 &1711813151
 Canvas:
@@ -14024,8 +14043,8 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 1
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -14663,6 +14682,21 @@ MonoBehaviour:
   - {fileID: 631551113}
   gameOver: {fileID: 1711813150}
   victory: {fileID: 2072755802}
+  resetLevel:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 518050533}
+        m_TargetAssemblyTypeName: Assets.Scripts.Mechanics.Hunger, Assembly-CSharp
+        m_MethodName: ResetHunger
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   playerController: {fileID: 518050534}
   playerInteraction: {fileID: 1867798467}
 --- !u!4 &1827952526
@@ -16572,8 +16606,8 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 1
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -16650,7 +16684,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc7a28ac83a2c0144b8dfe2337d4ccfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  metaGameController: {fileID: 1827952525}
+  victory:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1827952525}
+        m_TargetAssemblyTypeName: Assets.Scripts.UI.MetaGameController, Assembly-CSharp
+        m_MethodName: ToggleVictory
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   isVictory: 0
 --- !u!1001 &2081690650
 PrefabInstance:

@@ -30,7 +30,7 @@ namespace Assets.Scripts.Mechanics
             if (foodCount != _foodItems.Length)
             {
                 foodCount = _foodItems.Length;
-                _UpdateFoodCounter(foodCount);
+                UpdateFoodCounter(foodCount);
 
                 if (foodCount <= 0)
                 {
@@ -39,7 +39,7 @@ namespace Assets.Scripts.Mechanics
             }
         }
 
-        void _UpdateFoodCounter(int foodCount)
+        void UpdateFoodCounter(int foodCount)
         {
             _counterText.text = $"{foodCount}";
         }
