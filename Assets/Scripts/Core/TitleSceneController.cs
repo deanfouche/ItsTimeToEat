@@ -19,7 +19,6 @@ namespace Assets.Scripts.Core
             double introDuration = (double)titleThemeIntro.clip.samples / titleThemeIntro.clip.frequency;
             double startTime = AudioSettings.dspTime + 2;
             titleThemeIntro.PlayScheduled(startTime);
-            //titleThemeIntro.SetScheduledEndTime(startTime + introDuration - 2);
             titleThemeLoop.PlayScheduled(startTime + introDuration);
         }
     }
