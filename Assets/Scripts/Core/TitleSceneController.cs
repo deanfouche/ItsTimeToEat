@@ -16,10 +16,17 @@ namespace Assets.Scripts.Core
 
         void Start()
         {
-            double introDuration = (double)titleThemeIntro.clip.samples / titleThemeIntro.clip.frequency;
             double startTime = AudioSettings.dspTime + 2;
-            titleThemeIntro.PlayScheduled(startTime);
-            titleThemeLoop.PlayScheduled(startTime + introDuration);
+            if (Application.platform == RuntimePlatform.WebGLPlayer)
+            {
+                titleThemeLoop.PlayScheduled(startTime);
+            }
+            else
+            {
+                double introDuration = (double)titleThemeIntro.clip.samples / titleThemeIntro.clip.frequency;
+                titleThemeIntro.PlayScheduled(startTime);
+                titleThemeLoop.PlayScheduled(startTime + introDuration);
+            }
         }
     }
 }
