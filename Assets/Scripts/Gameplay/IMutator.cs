@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
+using UnityEngine;
 
 namespace Assets.Scripts.Gameplay
 {
@@ -22,7 +23,8 @@ namespace Assets.Scripts.Gameplay
             return attribute?.Description ?? this.Mutation.ToString();
         }
 
-        public void ApplyMutation(FirstPersonController player);
+        public void ApplyMutation(GameObject player);
+        public void DeactivateMutation(GameObject player);
     }
 
     public enum Mutation

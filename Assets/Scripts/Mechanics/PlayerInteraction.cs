@@ -14,7 +14,7 @@ namespace Assets.Scripts.Mechanics
 
         public Transform holdPos;
         public float pickUpRange = 2f; // how far the player can pickup the object from
-        public float throwForce = 500f; // force at which the object is thrown at
+        //public float throwForce = 500f; // force at which the object is thrown at
         GameObject _heldObj; // object which we pick up
         Rigidbody _heldObjRb; // rigidbody of object we pick up
 
@@ -44,15 +44,11 @@ namespace Assets.Scripts.Mechanics
                         // perform raycast to check if player is looking at object within pickuprange
                         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out RaycastHit hit, pickUpRange))
                         {
-                            // make sure pickup tag is attached
-                            //if (hit.transform.gameObject.CompareTag("CanPickUp") || hit.transform.gameObject.CompareTag("Food"))
-
                             // make sure player is looking at an interactable object
                             Interactable pickUpObj;
                             if (hit.transform.gameObject.TryGetComponent<Interactable>(out pickUpObj))
                             {
                                 // pass in object hit into the PickUpObject function
-                                //PickUpObject(hit.transform.gameObject);
                                 PickUpObject(pickUpObj.gameObject);
                             }
                         }
@@ -100,7 +96,6 @@ namespace Assets.Scripts.Mechanics
         {
             if (isHoldingObj)
             {
-                //if (_heldObj.CompareTag("Food"))
                 Interactable interactable;
                 if (_heldObj.TryGetComponent<Interactable>(out interactable) && interactable.isEdible)
                 {
@@ -294,7 +289,14 @@ namespace Assets.Scripts.Mechanics
             }
 
             _heldObj.transform.parent = null;
-            _heldObjRb.AddForce(_totalWindUpTime * throwForce * transform.forward);
+            FirstPersonController firstPersonController;
+            if (player.TryGetComponent<FirstPersonController>(out firstPersonController))
+            {
+                _heldObjRb.AddForce(_totalWindUpTime * firstPersonController.throwForce * transform.forward);
+            } else
+            {
+                _heldObjRb.AddForce(_totalWindUpTime * 500f * transform.forward);
+            }
             _totalWindUpTime = 0;
             isHoldingObj = false;
             _heldObj = null;

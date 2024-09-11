@@ -2212,6 +2212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &188995393 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7723463527615195606, guid: 43b3ec6962896124fb39cd3592facc75,
@@ -4155,6 +4156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &462451450
 GameObject:
   m_ObjectHideFlags: 0
@@ -4744,6 +4746,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &518050519 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4459864850019384750, guid: 6bacecc4f3df9584198879c73a6b6c36,
@@ -5594,6 +5597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!223 &631551113 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 4459864851551516593, guid: 6bacecc4f3df9584198879c73a6b6c36,
@@ -7611,6 +7615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &948402602
 GameObject:
   m_ObjectHideFlags: 0
@@ -8169,6 +8174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1001 &1001363171
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8338,6 +8344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &1009697482 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1012311386055193492, guid: db66b66f761249347b45ef948710e295,
@@ -8443,6 +8450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &1041278073
 GameObject:
   m_ObjectHideFlags: 0
@@ -8685,6 +8693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &1083460888
 GameObject:
   m_ObjectHideFlags: 0
@@ -9131,6 +9140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &1121630200 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6574202897443252720, guid: 24b71c545c0dea94485342e22f537390,
@@ -9150,6 +9160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1001 &1128097755
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9439,6 +9450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &1198625119
 GameObject:
   m_ObjectHideFlags: 0
@@ -9588,6 +9600,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1001 &1222238738
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9785,6 +9798,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &1230415655 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3733071557484738934, guid: 6423086f4c3c91941b15347f806e5496,
@@ -9804,6 +9818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1001 &1253942645
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9901,6 +9916,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!224 &1276353879 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 876742144, guid: 9a1bd12ebb35d4dc997aa0c5494eda9b,
@@ -10354,6 +10370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &1366215612 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1661253004206437238, guid: a92c2a59ab330134e97d25fa300c4155,
@@ -10373,6 +10390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &1375069852 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4600962839327905822, guid: c28f78ec568fdde469c5319409c09d3c,
@@ -11170,6 +11188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1001 &1451961912
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11524,6 +11543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1001 &1474205481
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11615,6 +11635,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &1491063373
 GameObject:
   m_ObjectHideFlags: 0
@@ -11782,6 +11803,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &1502541016
 GameObject:
   m_ObjectHideFlags: 0
@@ -11981,6 +12003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &1530070032
 GameObject:
   m_ObjectHideFlags: 0
@@ -12206,6 +12229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &1545752809 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7711825394073895313, guid: 0718c8b31df11bd408bffcfd3729b04a,
@@ -12225,6 +12249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &1553705392 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8449134456902389630, guid: eb323cb6688d54249b6a030872eb489c,
@@ -12322,6 +12347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &1559229097
 GameObject:
   m_ObjectHideFlags: 0
@@ -12987,6 +13013,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &1638930952 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2704771520235453413, guid: 62679780ebae3144aa7a82dfa853d1a4,
@@ -13006,6 +13033,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1001 &1648042336
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13097,6 +13125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1001 &1649754346
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13247,6 +13276,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1657581398}
+    - targetCorrespondingSourceObject: {fileID: 6357266501441153987, guid: 50b8d7a31d8d5a2469b0806bcefffe4b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1657581399}
   m_SourcePrefab: {fileID: 100100000, guid: 50b8d7a31d8d5a2469b0806bcefffe4b, type: 3}
 --- !u!4 &1657581393 stripped
 Transform:
@@ -13267,6 +13300,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
+--- !u!114 &1657581399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689694801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ea4e357fb03ea247ae48ff46c4eb2d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1693636100
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13360,6 +13406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1001 &1707184614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13451,6 +13498,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &1711813146
 GameObject:
   m_ObjectHideFlags: 0
@@ -13691,6 +13739,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1001 &1747792796
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13782,6 +13831,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1001 &1749100569
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13947,6 +13997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!114 &1811958801 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4009130065698333724, guid: 9a1bd12ebb35d4dc997aa0c5494eda9b,
@@ -13978,6 +14029,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &1825272024 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1537881004332490164, guid: 6f1977e8f3090d544acb9a6cb8234612,
@@ -13997,6 +14049,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &1827952524
 GameObject:
   m_ObjectHideFlags: 0
@@ -14199,6 +14252,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1865019290}
+    - targetCorrespondingSourceObject: {fileID: 8060512903588124158, guid: fd391df2a0cc8834689ec0c4e8e75799,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1865019291}
   m_SourcePrefab: {fileID: 100100000, guid: fd391df2a0cc8834689ec0c4e8e75799, type: 3}
 --- !u!4 &1865019285 stripped
 Transform:
@@ -14219,6 +14276,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
+--- !u!114 &1865019291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569648699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ea4e357fb03ea247ae48ff46c4eb2d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1867798462 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4459864851310106424, guid: 6bacecc4f3df9584198879c73a6b6c36,
@@ -14286,7 +14356,6 @@ MonoBehaviour:
   rightHandAnimator: {fileID: 1592803103}
   holdPos: {fileID: 905235750}
   pickUpRange: 2
-  throwForce: 500
   playerCanInteract: 0
   isHoldingObj: 0
   isEating: 0
@@ -14439,6 +14508,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &1905374490
 GameObject:
   m_ObjectHideFlags: 0
@@ -14592,6 +14662,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &1923153378 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7599190570879232258, guid: 2ee7c4a3c08d9ae4ea14ecf15bf0aea3,
@@ -14639,6 +14710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1001 &1931899596
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14736,6 +14808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!224 &1944293761 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4009130065698333725, guid: 9a1bd12ebb35d4dc997aa0c5494eda9b,
@@ -14839,6 +14912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1001 &1983417649
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14930,6 +15004,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1001 &2016847389
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15170,6 +15245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1001 &2050113942
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15261,6 +15337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &2050682754
 GameObject:
   m_ObjectHideFlags: 0
@@ -15602,6 +15679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &2072755795
 GameObject:
   m_ObjectHideFlags: 0
@@ -15770,6 +15848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &2085867495
 GameObject:
   m_ObjectHideFlags: 0
@@ -15931,6 +16010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &2090554316
 GameObject:
   m_ObjectHideFlags: 0
@@ -16156,6 +16236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &2096297757 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7250533731954646359, guid: b7a702b59bf4c1241ba9d99965d58e59,
@@ -16175,6 +16256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1 &2124571511
 GameObject:
   m_ObjectHideFlags: 0
@@ -16267,6 +16349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1001 &2126160921
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16358,6 +16441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1001 &2132253019
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16449,6 +16533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1001 &2146473678
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16540,6 +16625,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdible: 1
+  holdPos: {fileID: 0}
 --- !u!1001 &1702818579534232531
 PrefabInstance:
   m_ObjectHideFlags: 0

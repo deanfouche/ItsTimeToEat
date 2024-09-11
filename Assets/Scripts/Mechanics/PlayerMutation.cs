@@ -43,22 +43,7 @@ namespace Assets.Scripts.Mechanics
         {
             if (!mutators.Exists(m => m.Mutation == mutator.Mutation))
             {
-                switch (mutator.Mutation)
-                {
-                    case Mutation.SpeedBoost:
-                        _playerController.walkSpeed += mutator.Intensity;
-                        _playerController.sprintSpeed += mutator.Intensity;
-                        break;
-                    case Mutation.ThrowBoost:
-                        _playerInteraction.throwForce += mutator.Intensity;
-                        break;
-                    case Mutation.StrengthBoost:
-                        break;
-                    case Mutation.Armor:
-                        break;
-                    default:
-                        break;
-                }
+                mutator.ApplyMutation(player);
                 mutator.TimeToExpire = Time.deltaTime + mutator.Duration;
                 mutator.IsActive = true;
                 mutators.Add(mutator);
@@ -76,23 +61,7 @@ namespace Assets.Scripts.Mechanics
         {
             if (mutators.Exists(m => m.Mutation == mutator.Mutation))
             {
-                switch (mutator.Mutation)
-                {
-                    case Mutation.SpeedBoost:
-                        var playerController = player.GetComponent<FirstPersonController>();
-                        playerController.walkSpeed -= mutator.Intensity;
-                        playerController.sprintSpeed -= mutator.Intensity;
-                        break;
-                    case Mutation.ThrowBoost:
-                        _playerInteraction.throwForce -= mutator.Intensity;
-                        break;
-                    case Mutation.StrengthBoost:
-                        break;
-                    case Mutation.Armor:
-                        break;
-                    default:
-                        break;
-                }
+                mutator.DeactivateMutation(player);
                 mutator.IsActive = false;// add a UI indicator of the lifespan of the mutation
                 Mutations mutationsUI = mutationDisplay.GetComponent<Mutations>();
                 if (mutationsUI != null)

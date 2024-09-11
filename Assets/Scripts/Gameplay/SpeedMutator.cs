@@ -11,9 +11,24 @@ namespace Assets.Scripts.Gameplay
         public float Duration { get; set; } = 10f;
         public bool IsActive { get; set; }
 
-        public void ApplyMutation(FirstPersonController player)
+        public void ApplyMutation(GameObject player)
         {
-            throw new System.NotImplementedException();
+            FirstPersonController firstPersonController;
+            if (player.TryGetComponent<FirstPersonController>(out firstPersonController))
+            {
+                firstPersonController.walkSpeed += Intensity;
+                firstPersonController.sprintSpeed += Intensity;
+            }
+        }
+
+        public void DeactivateMutation(GameObject player)
+        {
+            FirstPersonController firstPersonController;
+            if (player.TryGetComponent<FirstPersonController>(out firstPersonController))
+            {
+                firstPersonController.walkSpeed -= Intensity;
+                firstPersonController.sprintSpeed -= Intensity;
+            }
         }
     }
 }

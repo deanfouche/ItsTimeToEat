@@ -131,6 +131,12 @@ public class FirstPersonController : MonoBehaviour
 
     #endregion
 
+    #region Physics Variables
+
+    public float throwForce = 500f;
+
+    #endregion
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();

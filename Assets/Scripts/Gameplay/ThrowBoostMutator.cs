@@ -11,9 +11,22 @@ namespace Assets.Scripts.Gameplay
         public float Duration { get; set; } = 20f;
         public bool IsActive { get; set; }
 
-        public void ApplyMutation(FirstPersonController player)
+        public void ApplyMutation(GameObject player)
         {
-            throw new System.NotImplementedException();
+            FirstPersonController firstPersonController;
+            if (player.TryGetComponent<FirstPersonController>(out firstPersonController))
+            {
+                firstPersonController.throwForce += Intensity;
+            }
+        }
+
+        public void DeactivateMutation(GameObject player)
+        {
+            FirstPersonController firstPersonController;
+            if (player.TryGetComponent<FirstPersonController>(out firstPersonController))
+            {
+                firstPersonController.throwForce -= Intensity;
+            }
         }
     }
 }
