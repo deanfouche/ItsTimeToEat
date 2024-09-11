@@ -2,6 +2,7 @@
 using Assets.Scripts.UI;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Mechanics
 {
@@ -48,7 +49,10 @@ namespace Assets.Scripts.Mechanics
 
             if (hungerStatus.CurrentVal <= hungerStatus.MinVal)
             {
-                gameOver.PlayerStarved();
+                if (SceneManager.GetActiveScene().name != "TheLaboratory")
+                {
+                    gameOver.PlayerStarved();
+                }
             }
         }
     }
