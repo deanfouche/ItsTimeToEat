@@ -11,16 +11,9 @@ namespace Assets.Scripts.Gameplay
         public float Duration { get; set; } = 10f;
         public bool IsActive { get; set; }
 
-        // Use this for initialization
-        void Start()
+        public void ApplyMutation(FirstPersonController player)
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            throw new System.NotImplementedException();
         }
     }
 }

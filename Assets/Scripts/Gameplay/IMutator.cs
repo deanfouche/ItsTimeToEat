@@ -21,6 +21,8 @@ namespace Assets.Scripts.Gameplay
             var attribute = field.GetCustomAttribute<DescriptionAttribute>();
             return attribute?.Description ?? this.Mutation.ToString();
         }
+
+        public void ApplyMutation(FirstPersonController player);
     }
 
     public enum Mutation

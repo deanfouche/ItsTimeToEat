@@ -45,10 +45,15 @@ namespace Assets.Scripts.Mechanics
                         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out RaycastHit hit, pickUpRange))
                         {
                             // make sure pickup tag is attached
-                            if (hit.transform.gameObject.CompareTag("CanPickUp") || hit.transform.gameObject.CompareTag("Food"))
+                            //if (hit.transform.gameObject.CompareTag("CanPickUp") || hit.transform.gameObject.CompareTag("Food"))
+
+                            // make sure player is looking at an interactable object
+                            Interactable pickUpObj;
+                            if (hit.transform.gameObject.TryGetComponent<Interactable>(out pickUpObj))
                             {
                                 // pass in object hit into the PickUpObject function
-                                PickUpObject(hit.transform.gameObject);
+                                //PickUpObject(hit.transform.gameObject);
+                                PickUpObject(pickUpObj.gameObject);
                             }
                         }
                     }
@@ -95,7 +100,9 @@ namespace Assets.Scripts.Mechanics
         {
             if (isHoldingObj)
             {
-                if (_heldObj.CompareTag("Food"))
+                //if (_heldObj.CompareTag("Food"))
+                Interactable interactable;
+                if (_heldObj.TryGetComponent<Interactable>(out interactable) && interactable.isEdible)
                 {
                     EatFood();
                 }
@@ -158,7 +165,7 @@ namespace Assets.Scripts.Mechanics
             if (pickUpObj.GetComponent<Rigidbody>()) //make sure the object has a RigidBody
             {
                 playerCanInteract = false;
-                   _heldObj = pickUpObj; // assign object that was hit by the raycast to _heldObj (no longer == null)
+                _heldObj = pickUpObj; // assign object that was hit by the raycast to _heldObj (no longer == null)
                 _heldObjRb = pickUpObj.GetComponent<Rigidbody>(); //assign Rigidbody
 
                 rightHandAnimator.SetTrigger("GrabObject");
