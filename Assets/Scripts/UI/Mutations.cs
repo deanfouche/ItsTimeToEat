@@ -21,6 +21,13 @@ namespace Assets.Scripts.UI
             activeMutations.Add(newMutationIndicator);
         }
 
+        public void ExtendMutationIndicator(IMutator mutator)
+        {
+            GameObject activeMutationIndicator = activeMutations.Find(mutation => mutation.gameObject.name == mutator.Mutation.ToString());
+            MutationIndicator indicator = activeMutationIndicator.GetComponent<MutationIndicator>();
+            indicator.SetTimeToExpire(mutator.TimeToExpire);
+        }
+
         public void RemoveMutationIndicator(Mutation mutation)
         {
             if (activeMutations.Count > 0)

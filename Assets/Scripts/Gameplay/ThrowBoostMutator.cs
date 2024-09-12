@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Controllers;
+using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Gameplay
@@ -13,8 +14,8 @@ namespace Assets.Scripts.Gameplay
 
         public void ApplyMutation(GameObject player)
         {
-            FirstPersonController firstPersonController;
-            if (player.TryGetComponent<FirstPersonController>(out firstPersonController))
+            PlayerController firstPersonController;
+            if (player.TryGetComponent<PlayerController>(out firstPersonController))
             {
                 firstPersonController.throwForce += Intensity;
             }
@@ -22,8 +23,8 @@ namespace Assets.Scripts.Gameplay
 
         public void DeactivateMutation(GameObject player)
         {
-            FirstPersonController firstPersonController;
-            if (player.TryGetComponent<FirstPersonController>(out firstPersonController))
+            PlayerController firstPersonController;
+            if (player.TryGetComponent<PlayerController>(out firstPersonController))
             {
                 firstPersonController.throwForce -= Intensity;
             }

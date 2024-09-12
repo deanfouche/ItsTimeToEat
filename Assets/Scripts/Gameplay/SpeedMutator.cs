@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Controllers;
+using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Gameplay
@@ -13,21 +14,21 @@ namespace Assets.Scripts.Gameplay
 
         public void ApplyMutation(GameObject player)
         {
-            FirstPersonController firstPersonController;
-            if (player.TryGetComponent<FirstPersonController>(out firstPersonController))
+            PlayerController playerController;
+            if (player.TryGetComponent<PlayerController>(out playerController))
             {
-                firstPersonController.walkSpeed += Intensity;
-                firstPersonController.sprintSpeed += Intensity;
+                playerController.walkSpeed += Intensity;
+                playerController.sprintSpeed += Intensity;
             }
         }
 
         public void DeactivateMutation(GameObject player)
         {
-            FirstPersonController firstPersonController;
-            if (player.TryGetComponent<FirstPersonController>(out firstPersonController))
+            PlayerController playerController;
+            if (player.TryGetComponent<PlayerController>(out playerController))
             {
-                firstPersonController.walkSpeed -= Intensity;
-                firstPersonController.sprintSpeed -= Intensity;
+                playerController.walkSpeed -= Intensity;
+                playerController.sprintSpeed -= Intensity;
             }
         }
     }

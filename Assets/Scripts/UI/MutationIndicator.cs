@@ -29,6 +29,11 @@ namespace Assets.Scripts.UI
             mutationUIObj = new MutationUIElement(name, timeToExpire, totalTime);
         }
 
+        public void SetTimeToExpire(float timeToExpire)
+        {
+            mutationUIObj.timeToExpire = timeToExpire;
+        }
+
         public void RemoveMutationUIElement()
         {
             Destroy(this.gameObject);

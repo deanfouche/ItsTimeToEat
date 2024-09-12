@@ -1,3 +1,4 @@
+using Assets.Scripts.Controllers;
 using Assets.Scripts.Mechanics;
 using Assets.Scripts.UI;
 using System.Collections;
@@ -37,7 +38,7 @@ namespace Assets.Scripts.Core
         bool _showGameOverCanvas = false;
 
         [SerializeField]
-        FirstPersonController playerController;
+        PlayerController playerController;
         [SerializeField]
         PlayerInteraction playerInteraction;
 

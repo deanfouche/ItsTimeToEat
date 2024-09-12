@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Gameplay;
+﻿using Assets.Scripts.Controllers;
+using Assets.Scripts.Gameplay;
 using Assets.Scripts.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,13 +13,13 @@ namespace Assets.Scripts.Mechanics
         public List<IMutator> mutators = new List<IMutator>();
         public GameObject mutationDisplay;
 
-        private FirstPersonController _playerController;
+        private PlayerController _playerController;
         private PlayerInteraction _playerInteraction;
 
         // Use this for initialization
         void Start()
         {
-            _playerController = player.GetComponent<FirstPersonController>();
+            _playerController = player.GetComponent<PlayerController>();
             _playerInteraction = player.GetComponentInChildren<PlayerInteraction>();
         }
 
@@ -53,6 +54,16 @@ namespace Assets.Scripts.Mechanics
                 if (mutationsUI != null)
                 {
                     mutationsUI.AddMutationIndicator(mutator);
+                }
+            } else
+            {
+                IMutator originalMutator = mutators.Find(m => m.Mutation == mutator.Mutation);
+                originalMutator.TimeToExpire = Time.deltaTime + originalMutator.Duration;
+                // add a UI indicator of the lifespan of the mutation
+                Mutations mutationsUI = mutationDisplay.GetComponent<Mutations>();
+                if (mutationsUI != null)
+                {
+                    mutationsUI.ExtendMutationIndicator(originalMutator);
                 }
             }
         }

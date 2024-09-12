@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Core;
+﻿using Assets.Scripts.Controllers;
+using Assets.Scripts.Core;
 using Assets.Scripts.Gameplay;
 using System.Collections;
 using System.Collections.Generic;
@@ -289,8 +290,8 @@ namespace Assets.Scripts.Mechanics
             }
 
             _heldObj.transform.parent = null;
-            FirstPersonController firstPersonController;
-            if (player.TryGetComponent<FirstPersonController>(out firstPersonController))
+            PlayerController firstPersonController;
+            if (player.TryGetComponent<PlayerController>(out firstPersonController))
             {
                 _heldObjRb.AddForce(_totalWindUpTime * firstPersonController.throwForce * transform.forward);
             } else
