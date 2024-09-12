@@ -141,7 +141,7 @@ namespace Assets.Scripts.Core
                 }
                 if (Input.GetKeyDown(KeyCode.R))
                 {
-                    RestartGame();
+                    ResetScene();
                 }
             }
 
@@ -149,7 +149,7 @@ namespace Assets.Scripts.Core
             {
                 if (Input.GetKeyDown(KeyCode.R))
                 {
-                    RestartGame();
+                    ResetScene();
                 }
                 if (Input.GetKeyDown(KeyCode.X))
                 {
@@ -161,6 +161,11 @@ namespace Assets.Scripts.Core
         void RestartGame()
         {
             LoadSceneAsync("Game");
+        }
+
+        public void ResetScene()
+        {
+            LoadSceneAsync(SceneManager.GetActiveScene().name);
         }
 
         void ExitGame()

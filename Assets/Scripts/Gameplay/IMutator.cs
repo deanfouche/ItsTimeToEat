@@ -6,7 +6,7 @@ namespace Assets.Scripts.Gameplay
 {
     public interface IMutator
     {
-        public Mutation Mutation { get; set; }
+        public MutationType Mutation { get; set; }
 
         public float Intensity { get; set; }
 
@@ -27,7 +27,7 @@ namespace Assets.Scripts.Gameplay
         public void DeactivateMutation(GameObject player);
     }
 
-    public enum Mutation
+    public enum MutationType
     {
         [Description("Speed boost")]
         SpeedBoost,
@@ -39,6 +39,12 @@ namespace Assets.Scripts.Gameplay
         StrengthBoost,
 
         [Description("Armor boost")]
-        Armor
+        Armor,
+
+        [Description("Low Gravity")]
+        LowGravity,
+
+        [Description("Double Jump")]
+        DoubleJump
     }
 }

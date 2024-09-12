@@ -99,9 +99,11 @@ namespace Assets.Scripts.Controllers
         public bool enableJump = true;
         public KeyCode jumpKey = KeyCode.Space;
         public float jumpPower = 5f;
+        public bool enableDoubleJump = false;
 
         // Internal Variables
         private bool isGrounded = false;
+        private bool hasDoubleJump = true;
 
         #endregion
 
@@ -334,7 +336,7 @@ namespace Assets.Scripts.Controllers
             #region Jump
 
             // Gets input and calls jump method
-            if (enableJump && Input.GetKeyDown(jumpKey) && isGrounded)
+            if (enableJump && Input.GetKeyDown(jumpKey))
             {
                 Jump();
             }
@@ -466,6 +468,7 @@ namespace Assets.Scripts.Controllers
             {
                 Debug.DrawRay(origin, direction * distance, Color.red);
                 isGrounded = true;
+                hasDoubleJump = true;
             }
             else
             {
@@ -480,6 +483,10 @@ namespace Assets.Scripts.Controllers
             {
                 rb.AddForce(0f, jumpPower, 0f, ForceMode.Impulse);
                 isGrounded = false;
+            } else if (enableDoubleJump && hasDoubleJump)
+            {
+                rb.AddForce(0f, jumpPower, 0f, ForceMode.Impulse);
+                hasDoubleJump = false;
             }
 
             // When crouched and using toggle system, will uncrouch for a jump

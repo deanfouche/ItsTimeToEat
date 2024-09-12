@@ -28,7 +28,7 @@ namespace Assets.Scripts.UI
             indicator.SetTimeToExpire(mutator.TimeToExpire);
         }
 
-        public void RemoveMutationIndicator(Mutation mutation)
+        public void RemoveMutationIndicator(MutationType mutation)
         {
             if (activeMutations.Count > 0)
             {
